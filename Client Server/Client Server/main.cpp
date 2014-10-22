@@ -19,7 +19,6 @@ int main() {
 
 	struct addrinfo *result = NULL, *ptr = NULL, hints;
 
-
 	WSADATA wsaData;
 	int iResult, iSendResult;
 	SOCKET ListenSocket = INVALID_SOCKET;
@@ -115,6 +114,7 @@ int main() {
 			return 1;
 		}
 	}while (iResult > 0);
+
 	//Shut down send component
 	iResult = shutdown(ClientSocket, SD_SEND);
 	if ( iResult == SOCKET_ERROR){

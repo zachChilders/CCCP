@@ -1,0 +1,1 @@
+typedef enum {WSASTARTFAIL, GETADDRFAIL}tcp_error_t;
