@@ -1,1 +1,1 @@
-typedef enum {WSASTARTFAIL, GETADDRFAIL}tcp_error_t;
+typedef enum tcp_error_t{ WSASTARTFAIL, GETADDRFAIL };
