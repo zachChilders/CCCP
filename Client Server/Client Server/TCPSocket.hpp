@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
@@ -14,6 +16,7 @@
 #include <IPHlpApi.h>
 #include <string>
 
+// Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
 #pragma comment(lib, "Ws2_32.lib")
 
 class TCPSocket
@@ -22,6 +25,7 @@ class TCPSocket
 		std::string address;
 		std::string port;
 		WSADATA wsaData;
+		SOCKET connectSocket;
 	
 	public:
 		virtual tcp_error_t start() = 0;
