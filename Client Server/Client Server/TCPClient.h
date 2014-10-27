@@ -1,5 +1,4 @@
-#ifndef TCPCLIENT_H
-#define TCPCLIENT_H
+#pragma once
 
 #include "TCPSocket.hpp"
 
@@ -25,5 +24,3 @@ public:
 	//Properly closes the connection, but does not clean up Winsock
 	tcp_error_t stop();
 };
-
-#endif
