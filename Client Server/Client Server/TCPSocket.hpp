@@ -8,7 +8,7 @@
 #include "tcp_error_t.h"
 
 #include <Windows.h>
-#include <winsock2.h>
+#include <WinSock2.h>
 #include <ws2tcpip.h>
 #include <iostream>
 #include <IPHlpApi.h>
