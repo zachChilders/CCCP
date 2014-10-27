@@ -21,7 +21,7 @@ class TCPServer : TCPSocket
 	SOCKET clientSocket;
 
 	void open();
-	void bind();
-	void listen();
+	void bindSocket();
+	void listenOnSocket();
 	void work();
 };

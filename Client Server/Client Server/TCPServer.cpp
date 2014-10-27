@@ -35,7 +35,7 @@ TCPServer::TCPServer()
 TCPServer::~TCPServer()
 {
 	res = shutdown(clientSocket, SD_SEND);
-	closeSocket(clientSocket);
+	closesocket(clientSocket);
 	WSACleanup();
 }
 
@@ -45,35 +45,35 @@ void TCPServer::open()
 	if (listenSocket == INVALID_SOCKET)
 	{
 		std::cout << "Error at socket: " << WSAGetLastError() << std::endl;
-		freeaddrinfo(res);
+		freeaddrinfo(result);
 		WSACleanup();
 		return;
 	}
 }
 
-void TCPServer::bind()
+void TCPServer::bindSocket()
 {
-	res = bind(listenSocket, res->ai_addr, res->addrelen)
+	res = bind(listenSocket, result->ai_addr, result->ai_addrlen);
 	{
 		if (res == SOCKET_ERROR)
 		{
 			std::cout << "Bind failed with error: " << WSAGetLastError() << std::endl;
-			freeaddrinfo(res);
+			freeaddrinfo(result);
 			closesocket(listenSocket);
 			WSACleanup();
 			return;
 		}
 	}
 
-	freeaddrinfo(res);
+	freeaddrinfo(result);
 }
 
-void TCPServer::listen()
+void TCPServer::listenOnSocket()
 {
 	if (listen(listenSocket, SOMAXCONN) == SOCKET_ERROR)
 	{
 		std::cout << "Listen failed with error: " << WSAGetLastError() << std::endl;
-		freeaddrinfo(res);
+		freeaddrinfo(result);
 		closesocket(listenSocket);
 		WSACleanup();
 		return;
@@ -83,7 +83,7 @@ void TCPServer::listen()
 	if (clientSocket == INVALID_SOCKET)
 	{
 		std::cout << "Accept failed; " << WSAGetLastError() << std::endl;
-		closesocket(listeSocket);
+		closesocket(listenSocket);
 		WSACleanup();
 		return;
 	}
@@ -123,10 +123,10 @@ void TCPServer::work()
 tcp_error_t TCPServer::start()
 {
 	open();
-	bind();
+	bindSocket();
 	while (running)
 	{
-		listen();
+		listenOnSocket();
 		std::thread t(work);
 	}
 }
