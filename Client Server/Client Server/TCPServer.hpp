@@ -17,11 +17,12 @@ class TCPServer : TCPSocket
 	bool running;
 
 	struct addrinfo *result, *ptr, hints;
-	SOCKET listenSocket;
-	SOCKET clientSocket;
 
 	void open();
 	void bindSocket();
 	void listenOnSocket();
 	void work();
+	tcp_error_t start();
+	tcp_error_t stop();
+	void __start__();
 };
