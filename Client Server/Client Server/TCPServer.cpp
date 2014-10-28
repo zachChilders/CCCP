@@ -122,18 +122,19 @@ void TCPServer::work()
 
 tcp_error_t TCPServer::start()
 {
-	std::thread t(&TCPServer::__start__);
+	std::thread t(&TCPServer::__start__, this);
 
-
+	return SUCCESS;
 }
 
 tcp_error_t TCPServer::stop()
 {
 	closesocket(connectSocket);
 	running = false;
+	return SUCCESS;
 }
 
-void TCPServer::__start__()
+void TCPServer::__start__(void)
 {
 	open();
 	bindSocket();

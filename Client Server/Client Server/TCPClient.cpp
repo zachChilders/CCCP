@@ -91,6 +91,7 @@ tcp_error_t TCPClient::stop()
 		iResult = recv(connectSocket, recvbuf, DEFAULT_BUFLEN, 0);
 
 	} while (iResult > 0);
+
 	closesocket(connectSocket);
 
 	return SUCCESS;

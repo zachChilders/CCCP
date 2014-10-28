@@ -1,3 +1,4 @@
+#pragma once
 #include "TCPSocket.hpp"
 
 #include <iostream>
@@ -13,7 +14,6 @@ class TCPServer : TCPSocket
 	private:
 	std::vector<char> recvbuf;
 	int res;
-
 	bool running;
 
 	struct addrinfo *result, *ptr, hints;
