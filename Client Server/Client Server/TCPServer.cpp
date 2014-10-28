@@ -41,7 +41,7 @@ TCPServer::~TCPServer()
 
 void TCPServer::open()
 {
-	connectSocket = socket(hints.ai_family, hints.ai_socktype, hints.ai_protocol);
+	connectSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 	if (connectSocket == INVALID_SOCKET)
 	{
 		std::cout << "Error at socket: " << WSAGetLastError() << std::endl;
@@ -87,6 +87,7 @@ void TCPServer::listenOnSocket()
 		WSACleanup();
 		return;
 	}
+	std::cout << "Connection accepted" << std::endl;
 }
 
 void TCPServer::work()
@@ -123,7 +124,7 @@ void TCPServer::work()
 tcp_error_t TCPServer::start()
 {
 	std::thread t(&TCPServer::__start__, this);
-
+	t.join();
 	return SUCCESS;
 }
 
