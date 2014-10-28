@@ -15,6 +15,7 @@
 #include <iostream>
 #include <IPHlpApi.h>
 #include <string>
+#include <vector>
 
 // Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
 #pragma comment(lib, "Ws2_32.lib")
@@ -33,8 +34,8 @@ class TCPSocket
 		virtual tcp_error_t start() = 0;
 		virtual tcp_error_t stop() = 0;
 
-		tcp_error_t sendFile(std::string path);
-		tcp_error_t recieveFile();
+		tcp_error_t sendBytes(std::vector<byte> data);
+		tcp_error_t recieveBytes();
 
 		tcp_error_t sendString(std::string msg);
 		tcp_error_t recieveString();
