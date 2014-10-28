@@ -69,7 +69,7 @@ tcp_error_t TCPClient::start()
 		return CONNECTIONFAIL;
 	}
 
-
+	return SUCCESS;
 }
 
 tcp_error_t TCPClient::stop()
