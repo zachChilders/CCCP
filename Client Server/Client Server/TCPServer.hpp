@@ -12,9 +12,10 @@ class TCPServer : TCPSocket
 		~TCPServer();
 		tcp_error_t start();
 		tcp_error_t stop();
+		SOCKET clientSocket;
 
 	private:
-		std::vector<char> recvbuf;
+		char recvbuf[DEFAULT_BUFLEN];
 		int res;
 		bool running;
 

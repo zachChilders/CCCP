@@ -79,11 +79,11 @@ void TCPServer::listenOnSocket()
 		return;
 	}
 
-	connectSocket = accept(connectSocket, NULL, NULL);
-	if (connectSocket == INVALID_SOCKET)
+	clientSocket = accept(connectSocket, NULL, NULL);
+	if (clientSocket == INVALID_SOCKET)
 	{
 		std::cout << "Accept failed; " << WSAGetLastError() << std::endl;
-		closesocket(connectSocket);
+		closesocket(clientSocket);
 		WSACleanup();
 		return;
 	}
@@ -94,15 +94,15 @@ void TCPServer::work()
 {
 	//Work loop - recieves data and echoes it back.
 	do {
-		res = recv(connectSocket, &recvbuf[0], DEFAULT_BUFLEN, 0);
+		res = recv(clientSocket, recvbuf, DEFAULT_BUFLEN, 0);
 		if (res > 0){
 			std::cout << "Bytes recieved: " << res << "\n";
 
 			//Echo back to the sender
-			res = send(connectSocket, &recvbuf[0], res, 0);
+			res = send(clientSocket, recvbuf, res, 0);
 			if (res == SOCKET_ERROR){
 				std::cout << "send failed with error: " << WSAGetLastError() << std::endl;
-				closesocket(connectSocket);
+				closesocket(clientSocket);
 				WSACleanup();
 				return;
 			}
@@ -111,11 +111,12 @@ void TCPServer::work()
 		}
 		else if (res == 0){
 			std::cout << "Connection closing...." << std::endl;
+			closesocket(clientSocket);
+			
 		}
 		else{
 			std::cout << "recv failed: " << WSAGetLastError() << std::endl;
-			closesocket(connectSocket);
-			WSACleanup();
+			closesocket(clientSocket);
 			return;
 		}
 	} while (res > 0);
