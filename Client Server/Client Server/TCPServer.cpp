@@ -98,6 +98,11 @@ void TCPServer::work()
 		if (res > 0){
 			std::cout << "Bytes recieved: " << res << "\n";
 
+			for (int i = 0; i < res; i++)
+			{
+				std::cout << recvbuf[i];
+			}
+			std::cout << std::endl;
 			//Echo back to the sender
 			res = send(clientSocket, recvbuf, res, 0);
 			if (res == SOCKET_ERROR){
@@ -164,5 +169,5 @@ tcp_error_t TCPServer::sendString(std::string msg)
 
 tcp_error_t TCPServer::recieveString()
 {
-	
+	return SUCCESS;
 }
