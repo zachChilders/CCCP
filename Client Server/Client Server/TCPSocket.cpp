@@ -22,9 +22,19 @@ tcp_error_t TCPSocket::sendString(std::string msg)
 		return;
 	}
 	std::cout << "Bytes sent: " << res << std::endl;
+	return SUCCESS;
 }
 
 tcp_error_t TCPSocket::recieveString()
 {
+	int res = recv(connectSocket, recvbuf.get(), DEFAULT_BUFLEN, 0);
+	if (res > 0)
+	{
+		return SUCCESS;
+	}
+	else
+	{
+		return CONNECTIONFAIL;
+	}
 
 }

@@ -147,3 +147,22 @@ void TCPServer::__start__(void)
 	}
 
 }
+
+tcp_error_t TCPServer::sendString(std::string msg)
+{
+	int res = send(clientSocket, msg.c_str(), msg.length(), 0);
+	if (res == SOCKET_ERROR)
+	{
+		std::cout << "send failed with error: " << WSAGetLastError() << std::endl;
+		closesocket(clientSocket);
+		WSACleanup();
+		return CONNECTIONFAIL;
+	}
+	std::cout << "Bytes sent: " << res << std::endl;
+	return SUCCESS;
+}
+
+tcp_error_t TCPServer::recieveString()
+{
+	
+}
