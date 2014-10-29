@@ -5,7 +5,7 @@
 #pragma comment (lib, "Mswsock.lib")
 #pragma comment (lib, "AdvApi32.lib")
 
-class TCPClient : TCPSocket
+class TCPClient : public TCPSocket
 {
 private:
 

@@ -2,6 +2,7 @@
 
 TCPClient::TCPClient(char* address)
 {
+	this->recvbuf = std::unique_ptr<byte>(new byte[DEFAULT_BUFLEN]);
 	this->address = address;
 	this->port = DEFAULT_PORT;
 

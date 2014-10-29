@@ -30,6 +30,10 @@ tcp_error_t TCPSocket::recieveString()
 	int res = recv(connectSocket, (char*) recvbuf.get(), DEFAULT_BUFLEN, 0);
 	if (res > 0)
 	{
+		cout << endl;
+		for (int i = 0; i < res; i++)
+			cout << recvbuf.get()[i];
+		cout << endl;
 		return SUCCESS;
 	}
 	else
