@@ -29,6 +29,8 @@ class TCPSocket
 		std::string port;
 		WSADATA wsaData;
 		SOCKET connectSocket;
+		
+
 	
 	public:
 		virtual tcp_error_t start() = 0;

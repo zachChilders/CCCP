@@ -26,4 +26,10 @@ class TCPServer : TCPSocket
 		void listenOnSocket();
 		void work();
 		void __start__();
+
+		tcp_error_t sendBytes(std::vector<byte> data);
+		tcp_error_t recieveBytes();
+
+		tcp_error_t sendString(std::string msg);
+		tcp_error_t recieveString();
 };
