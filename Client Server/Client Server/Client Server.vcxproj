@@ -72,6 +72,7 @@
     <ClCompile Include="TCPSocket.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="preprocessor.h" />
     <ClInclude Include="TCPClient.h" />
     <ClInclude Include="TCPServer.hpp" />
     <ClInclude Include="TCPSocket.hpp" />
