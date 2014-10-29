@@ -156,8 +156,13 @@ tcp_error_t TCPServer::sendString(std::string msg)
 		std::cout << "send failed with error: " << WSAGetLastError() << std::endl;
 		closesocket(clientSocket);
 		WSACleanup();
-		return;
+		return CONNECTIONFAIL;
 	}
 	std::cout << "Bytes sent: " << res << std::endl;
 	return SUCCESS;
+}
+
+tcp_error_t TCPServer::recieveString()
+{
+	
 }
