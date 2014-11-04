@@ -1,18 +1,28 @@
+#pragma once
+
 #include <fstream>
 #include <string>
+#include <vector>
 #include <zlib.h>
+#include <queue>
+#include <Windows.h>
 
-class PreProcessor
+
+typedef enum MODE{RAW=0, COMPRESSED=2, ENCRYPTED=4};
+class Preprocessor
 {
 	public:
-		PreProcessor(std::string path);
-		PreProcessor();
-		~PreProcessor();
+		Preprocessor(std::string path);
+		~Preprocessor(){};
+		Byte* getBytes(MODE m);
 	private:
+		Byte* bytes;
 		Byte* compress(std::fstream *file);
-		Byte* compress(std::string path);
+		void compressFile(std::string path);
 
-		Byte* decompress(Byte* file);
+		void decompressFile(std::string path);
 		Byte* encrypt(Byte* data);
 		Byte* decrypt(Byte* data);
+
+		std::queue<std::string> listFiles(std::string path);
 };
