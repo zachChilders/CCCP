@@ -5,6 +5,7 @@
 #include <vector>
 #include <zlib.h>
 #include <queue>
+#include <tuple>
 #include <Windows.h>
 
 
@@ -24,5 +25,5 @@ class Preprocessor
 		Byte* encrypt(Byte* data);
 		Byte* decrypt(Byte* data);
 
-		std::queue<std::string> listFiles(std::string path);
+		std::tuple<std::queue<std::string>, std::queue<unsigned long>> listFiles(std::string path);
 };

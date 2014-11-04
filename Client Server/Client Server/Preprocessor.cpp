@@ -6,6 +6,12 @@ Preprocessor::Preprocessor(std::string path)
 }
 
 
+Byte* compress(std::fstream *file)
+{
+
+}
+
+
 void Preprocessor::compressFile(std::string path)
 {
 
@@ -19,7 +25,6 @@ void Preprocessor::compressFile(std::string path)
 	{
 		total_read += num_read;
 		gzwrite(outfile, buffer, infile.gcount());
-		deflate()
 	}
 
 	infile.close();
@@ -42,9 +47,10 @@ void Preprocessor::decompressFile(std::string path)
 }
 
 
-std::queue<std::string> Preprocessor::listFiles(std::string path)
+std::tuple<std::queue<std::string>, std::queue<unsigned long>> Preprocessor::listFiles(std::string path)
 {
 	std::queue<std::string> names;
+	std::queue<unsigned long> sizes;
 	char search_path[200];
 	sprintf(search_path, "%s*.*", path.c_str());
 	WIN32_FIND_DATA fd;
@@ -58,9 +64,11 @@ std::queue<std::string> Preprocessor::listFiles(std::string path)
 			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
 				names.push(fd.cFileName);
+				sizes.push(fd.nFileSizeLow);
+				
 			}
 		} while (::FindNextFile(hFind, &fd));
 		::FindClose(hFind);
 	}
-	return names;
+	return std::make_tuple(names, sizes);
 }
