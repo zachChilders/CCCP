@@ -18,7 +18,7 @@ class Preprocessor
 		Byte* getBytes(MODE m);
 	private:
 		Byte* bytes;
-		Byte* compress(std::fstream *file);
+		void compress(std::fstream *file);
 		void compressFile(std::string path);
 
 		void decompressFile(std::string path);

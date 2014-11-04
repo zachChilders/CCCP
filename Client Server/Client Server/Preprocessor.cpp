@@ -6,8 +6,29 @@ Preprocessor::Preprocessor(std::string path)
 }
 
 
-Byte* compress(std::fstream *file)
+void compress(std::tuple<std::queue<std::string>, std::queue<unsigned long>> fileList, MODE m)
 {
+	//Seperate our tuple
+	std::queue<std::string> files = std::get<0>(fileList);
+	std::queue<unsigned long> sizes = std::get<1>(fileList);
+	//Create a filestream to zip everything
+	std::ofstream bytes("bytes.!zp", std::ios::binary);
+
+	//Write the header
+	bytes << "ZT";
+	bytes << m;
+	bytes << files.size();
+	bytes << "CURRENT DIR"; // Fix this
+
+	for (int i = 0; i < files.size(); i++)
+	{
+		//Compress file
+		//Push original size
+		//Push compressed size
+		//Push compression data
+	}
+
+	bytes.close();
 
 }
 
@@ -45,7 +66,6 @@ void Preprocessor::decompressFile(std::string path)
 	gzclose(infile);
 	outfile.close();
 }
-
 
 std::tuple<std::queue<std::string>, std::queue<unsigned long>> Preprocessor::listFiles(std::string path)
 {
