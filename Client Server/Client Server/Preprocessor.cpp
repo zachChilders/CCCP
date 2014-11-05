@@ -1,4 +1,6 @@
 #include "preprocessor.h"
+#include <fstream>
+#include <memory>
 
 Preprocessor::Preprocessor(std::string path)
 {
@@ -22,14 +24,36 @@ void compress(std::tuple<std::queue<std::string>, std::queue<unsigned long>> fil
 
 	for (int i = 0; i < files.size(); i++)
 	{
-		//Compress file
-		//Push original size
-		//Push compressed size
-		//Push compression data
+		//Open file and get its size.
+		std::ifstream file(files.front(), std::ios::binary | std::ios::ate);
+
+		int fileSize = file.tellg();
+		
+		//Get the upper limit size of compressed file and read file into buffer.
+		uLong upperLimit = compressBound(fileSize);
+		std::unique_ptr<Bytef> compBuffer(new Bytef[upperLimit]), ifileBuffer(new Bytef[fileSize]);
+
+		file.read((char*)ifileBuffer.get(), fileSize);
+		file.close();
+
+		//Compress file and place write section information to file.
+		compress(compBuffer.get(), &upperLimit, ifileBuffer.get(), fileSize);
+
+		bytes << fileSize;
+		bytes << upperLimit;
+		bytes << files.front().c_str();
+		
+		for (int j = 0; j < upperLimit; j++)
+		{
+			bytes << compBuffer.get()[j];
+		}
+
+		files.pop();
 	}
 
 	bytes.close();
 
+	//send data here
 }
 
 
