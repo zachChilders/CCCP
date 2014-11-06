@@ -12,13 +12,14 @@
 typedef enum MODE{RAW=0, COMPRESSED=2, ENCRYPTED=4};
 class Preprocessor
 {
-	public:
-		Preprocessor(std::string path);
-		~Preprocessor(){};
-		Byte* getBytes(MODE m);
 	private:
 		Byte* bytes;
-		void compress(std::fstream *file);
+	public:
+		Preprocessor(std::string path = "");
+		~Preprocessor(){};
+		Byte* getBytes(MODE m);
+
+		void compressDir(std::tuple<std::queue<std::string>, std::queue<unsigned long>> fileList, MODE m);
 		void compressFile(std::string path);
 
 		void decompressFile(std::string path);

@@ -8,7 +8,7 @@ Preprocessor::Preprocessor(std::string path)
 }
 
 
-void compress(std::tuple<std::queue<std::string>, std::queue<unsigned long>> fileList, MODE m)
+void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<unsigned long>> fileList, MODE m)
 {
 	//Seperate our tuple
 	std::queue<std::string> files = std::get<0>(fileList);
@@ -28,7 +28,7 @@ void compress(std::tuple<std::queue<std::string>, std::queue<unsigned long>> fil
 		std::ifstream file(files.front(), std::ios::binary | std::ios::ate);
 
 		int fileSize = file.tellg();
-		
+		file.seekg(0);
 		//Get the upper limit size of compressed file and read file into buffer.
 		uLong upperLimit = compressBound(fileSize);
 		std::unique_ptr<Bytef> compBuffer(new Bytef[upperLimit]), ifileBuffer(new Bytef[fileSize]);

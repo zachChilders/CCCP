@@ -1,5 +1,6 @@
 #include "TCPServer.hpp"
 #include "TCPClient.h"
+#include "preprocessor.h"
 #include <fstream>
 #include <stdlib.h>
 #include <zlib.h>
@@ -18,4 +19,7 @@ int main()
 
 	//s.stop();
 
+	Preprocessor p;
+	std::tuple<std::queue<std::string>, std::queue<unsigned long>> tup = p.listFiles("./");
+	p.compressDir(tup, (MODE)0);
 }
