@@ -1,4 +1,5 @@
 #pragma once
+#include "tcp_error_t.h"
 
 #include <fstream>
 #include <string>
@@ -21,7 +22,7 @@ class Preprocessor
 
 		void compressDir(std::tuple<std::queue<std::string>, std::queue<unsigned long>> fileList, MODE m);
 		void compressFile(std::string path);
-
+		void decompressDir(std::string path);
 		void decompressFile(std::string path);
 		Byte* encrypt(Byte* data);
 		Byte* decrypt(Byte* data);
