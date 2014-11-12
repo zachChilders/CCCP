@@ -20,6 +20,7 @@ int main()
 	//s.stop();
 
 	Preprocessor p;
-	std::tuple<std::queue<std::string>, std::queue<unsigned long>> tup = p.listFiles("./");
-	p.compressDir(tup, (MODE)0);
+	//std::tuple<std::queue<std::string>, std::queue<unsigned long>> tup = p.listFiles("./");
+	//p.compressDir(tup, (MODE)0);
+	p.decompressDir("./Debug/!zipped/bytes.!zp");
 }

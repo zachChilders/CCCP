@@ -3,8 +3,8 @@
 * Mode (1) Enum { COMPRESSED = 1, ENCRYPTED = 2 }
 * Entries (4) int
 * Root Directory Name (var) delimiter 
-* Size of data block (4)
-* Size of original data (4)
+* Size of original block (4)
+* Size of compressed data (4)
 * File Name (var) relative path
 * Data (var)
 *
@@ -21,53 +21,92 @@ Preprocessor::Preprocessor(std::string path)
 
 void Preprocessor::decompressDir(std::string path)
 {
-	std::ifstream bytes(path);
-	char header[2];
-	bytes.get(header, 2);
+	std::ifstream bytes(path, std::ios::binary);
+	char header[3];
+	bytes.get(header, 3);
 
-	if (!strcmp(header, "ZT"))
+	if (strcmp(header, "ZT") != 0)
 	{
-		throw WRONG_FILE_TYPE;
+		throw new std::exception("Wrong file type");
 	}
 
 	char mode;
 	bytes.get(mode);
 
-	switch (mode)
+	//Check flags here
+
+	//Get number of entries
+	char bEntries[4];
+	bytes.read(bEntries, 4);
+	int entries = *reinterpret_cast<int*>(bEntries);
+
+	//Get root name
+	std::string rootName = "";
+	char in;
+	while ((in = bytes.get()) != '\0')
 	{
-		case RAW:
-			break;
-		case COMPRESSED:
-			break;
-		case ENCRYPTED:
-			break;
-		default:
-			break;
+		rootName += in;
 	}
-	
 
+	for (int i = 0; i < entries; i++)
+	{
+		//Get data size information
+		char bUncompressedSize[sizeof(uLong)], bCompressedSize[sizeof(uLong)];
+		uLong uncompressedSize, compressedSize;
 
+		bytes.read(bUncompressedSize, sizeof(uLong));
+		bytes.read(bCompressedSize, sizeof(uLong));
 
+		uncompressedSize = *reinterpret_cast<int*>(bUncompressedSize);
+		compressedSize = *reinterpret_cast<int*>(bCompressedSize);
+
+		//Get the file name
+		std::string fileName = "./Debug/!zipped/";
+		while ((in = bytes.get()) != '\0')
+		{
+			fileName += in;
+		}
+
+		//Read and decompress data
+		Bytef* uncompressed = new Bytef[uncompressedSize];
+		Bytef* compressed = new Bytef[compressedSize];
+
+		bytes.read((char*)compressed, compressedSize);
+
+		int err = uncompress(uncompressed, &uncompressedSize, compressed, compressedSize);
+
+		//Check for errors
+
+		std::ofstream out(fileName, std::ios::binary);
+		out.write((char*)uncompressed, uncompressedSize);
+		out.close();
+
+		delete[] uncompressed;
+		delete[] compressed;
+	}
+
+	bytes.close();
 }
 
-void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<unsigned long>> fileList, MODE m)
+void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<uLong>> fileList, MODE m)
 {
 	//Seperate our tuple
 	std::queue<std::string> files = std::get<0>(fileList);
-	std::queue<unsigned long> sizes = std::get<1>(fileList);
+	std::queue<uLong> sizes = std::get<1>(fileList);
 	//Create a filestream to zip everything
 	std::ofstream bytes("bytes.!zp", std::ios::binary);
 
 	int numFiles = files.size();
+	std::string dirname = "CURRENT DIR";
 	//Write the header
 	bytes << "ZT";
 	bytes << (char)m;
 	bytes.write(reinterpret_cast<const char *>(&numFiles), sizeof(numFiles));
-	bytes << "CURRENT DIR"; // Fix this
+	bytes.write(dirname.c_str(), dirname.length()+1); // Fix this
 
 	for (int i = 0; i < numFiles; i++)
 	{
-		int fileSize = sizes.front();
+		unsigned long fileSize = sizes.front();
 		//Open file and get its size.
 		std::ifstream file(files.front(), std::ios::binary);
 
@@ -83,7 +122,7 @@ void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<un
 
 		bytes.write(reinterpret_cast<const char *>(&fileSize), sizeof(fileSize)); //Original file size
 		bytes.write(reinterpret_cast<const char *>(&upperLimit), sizeof(upperLimit)); //Compressed file size
-		bytes << files.front().c_str(); //File name
+		bytes.write(files.front().c_str(), files.front().length()+1); //File name
 		
 		for (int j = 0; j < upperLimit; j++)
 		{
@@ -99,44 +138,10 @@ void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<un
 	//send data here
 }
 
-void Preprocessor::compressFile(std::string path)
-{
-
-	std::ifstream infile(path, std::ios::binary);
-	gzFile outfile = gzopen("compress", "wb");
-
-	char buffer[128];
-	int num_read = 0;
-	unsigned long total_read = 0, total_wrote = 0;
-	while (infile.read(buffer, 128).rdstate() == std::ios_base::goodbit) 
-	{
-		total_read += num_read;
-		gzwrite(outfile, buffer, infile.gcount());
-	}
-
-	infile.close();
-	gzclose(outfile);
-}
-
-void Preprocessor::decompressFile(std::string path)
-{
-	gzFile infile = gzopen("littleOutput.txt", "rb");
-	std::ofstream outfile("enbiggenOutput.txt", std::ios::binary);
-
-	char buffer[128];
-	int num_read = 0;
-	while ((num_read = gzread(infile, buffer, sizeof(buffer))) > 0) {
-		outfile.write(buffer, num_read);
-	}
-
-	gzclose(infile);
-	outfile.close();
-}
-
-std::tuple<std::queue<std::string>, std::queue<unsigned long>> Preprocessor::listFiles(std::string path)
+std::tuple<std::queue<std::string>, std::queue<uLong>> Preprocessor::listFiles(std::string path)
 {
 	std::queue<std::string> names;
-	std::queue<unsigned long> sizes;
+	std::queue<uLong> sizes;
 	char search_path[200];
 	sprintf(search_path, "%s*.*", path.c_str());
 	WIN32_FIND_DATA fd;
