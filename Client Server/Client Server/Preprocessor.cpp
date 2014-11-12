@@ -1,3 +1,15 @@
+/*
+* Header Bytes (2) ZT
+* Mode (1) Enum { COMPRESSED = 1, ENCRYPTED = 2 }
+* Entries (4) int
+* Root Directory Name (var) delimiter 
+* Size of data block (4)
+* Size of original data (4)
+* File Name (var) relative path
+*
+*
+*/
+
 #include "preprocessor.h"
 #include <fstream>
 #include <memory>
@@ -16,19 +28,19 @@ void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<un
 	//Create a filestream to zip everything
 	std::ofstream bytes("bytes.!zp", std::ios::binary);
 
+	int numFiles = files.size();
 	//Write the header
 	bytes << "ZT";
-	bytes << m;
-	bytes << files.size();
+	bytes << (char)m;
+	bytes.write(reinterpret_cast<const char *>(&numFiles), sizeof(numFiles));
 	bytes << "CURRENT DIR"; // Fix this
 
-	for (int i = 0; i < files.size(); i++)
+	for (int i = 0; i < numFiles; i++)
 	{
+		int fileSize = sizes.front();
 		//Open file and get its size.
-		std::ifstream file(files.front(), std::ios::binary | std::ios::ate);
+		std::ifstream file(files.front(), std::ios::binary);
 
-		int fileSize = file.tellg();
-		file.seekg(0);
 		//Get the upper limit size of compressed file and read file into buffer.
 		uLong upperLimit = compressBound(fileSize);
 		std::unique_ptr<Bytef> compBuffer(new Bytef[upperLimit]), ifileBuffer(new Bytef[fileSize]);
@@ -36,12 +48,12 @@ void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<un
 		file.read((char*)ifileBuffer.get(), fileSize);
 		file.close();
 
-		//Compress file and place write section information to file.
+		//Compress and write the next components
 		compress(compBuffer.get(), &upperLimit, ifileBuffer.get(), fileSize);
 
-		bytes << fileSize;
-		bytes << upperLimit;
-		bytes << files.front().c_str();
+		bytes.write(reinterpret_cast<const char *>(&fileSize), sizeof(fileSize)); //Original file size
+		bytes.write(reinterpret_cast<const char *>(&upperLimit), sizeof(upperLimit)); //Compressed file size
+		bytes << files.front().c_str(); //File name
 		
 		for (int j = 0; j < upperLimit; j++)
 		{
@@ -49,6 +61,7 @@ void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<un
 		}
 
 		files.pop();
+		sizes.pop();
 	}
 
 	bytes.close();
