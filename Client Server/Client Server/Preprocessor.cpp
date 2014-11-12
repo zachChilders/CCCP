@@ -7,6 +7,36 @@ Preprocessor::Preprocessor(std::string path)
 
 }
 
+void Preprocessor::decompressDir(std::string path)
+{
+	std::ifstream bytes(path);
+	char header[2];
+	bytes.get(header, 2);
+
+	if (!strcmp(header, "ZT"))
+	{
+		throw WRONG_FILE_TYPE;
+	}
+
+	char mode;
+	bytes.get(mode);
+
+	switch (mode)
+	{
+		case RAW:
+			break;
+		case COMPRESSED:
+			break;
+		case ENCRYPTED:
+			break;
+		default:
+			break;
+	}
+	
+
+
+
+}
 
 void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<unsigned long>> fileList, MODE m)
 {
@@ -55,7 +85,6 @@ void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<un
 
 	//send data here
 }
-
 
 void Preprocessor::compressFile(std::string path)
 {
