@@ -13,6 +13,9 @@
 #include "preprocessor.h"
 #include <fstream>
 #include <memory>
+#include <iostream>
+
+#define MAX_NAME_LENGTH 255
 
 Preprocessor::Preprocessor(std::string path)
 {
@@ -97,12 +100,17 @@ void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<uL
 	std::ofstream bytes("bytes.!zp", std::ios::binary);
 
 	int numFiles = files.size();
-	std::string dirname = "CURRENT DIR";
+
+	char dirName[MAX_NAME_LENGTH];
+	int dirNameLen = GetCurrentDirectory(MAX_NAME_LENGTH, dirName);
+
+	std::string sliced = getRelativeDir(dirNameLen, dirName);
+
 	//Write the header
 	bytes << "ZT";
 	bytes << (char)m;
 	bytes.write(reinterpret_cast<const char *>(&numFiles), sizeof(numFiles));
-	bytes.write(dirname.c_str(), dirname.length()+1); // Fix this
+	bytes.write(dirName, dirNameLen); // Fix this
 
 	for (int i = 0; i < numFiles; i++)
 	{
@@ -162,4 +170,26 @@ std::tuple<std::queue<std::string>, std::queue<uLong>> Preprocessor::listFiles(s
 		::FindClose(hFind);
 	}
 	return std::make_tuple(names, sizes);
+}
+
+std::string Preprocessor::getRelativeDir(int length, char* path)
+{
+	{
+		//This block finds the location of the last \ in the path.
+		int index = 0;
+		for (int i = 0; i < length; i++)
+		{
+			if (path[i] == '\\')
+			{
+				index = i;
+			}
+		}
+		//This block copies everything after it into a new string.
+		std::string localDirectory;
+		for (int i = index + 1; i < length; i++)
+		{
+			localDirectory += path[i];
+		}
+		return localDirectory;
+	}
 }

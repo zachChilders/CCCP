@@ -15,6 +15,7 @@ class Preprocessor
 {
 	private:
 		Byte* bytes;
+		std::string getRelativeDir(int length, char* path);
 	public:
 		Preprocessor(std::string path = "");
 		~Preprocessor(){};
