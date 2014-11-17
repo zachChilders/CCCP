@@ -1,6 +1,7 @@
 #include "TCPServer.hpp"
 #include "TCPClient.h"
 #include "preprocessor.h"
+#include "./include/Encryption/aes.h"
 #include <fstream>
 #include <stdlib.h>
 #include <zlib.h>
