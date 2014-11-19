@@ -1,14 +1,15 @@
 #include "TCPServer.hpp"
 #include "TCPClient.h"
 #include "preprocessor.h"
-#include "./include/Encryption/aes.h"
+#include "aes.h"
 #include <fstream>
 #include <stdlib.h>
 #include <zlib.h>
+#include "sqlite3.h"
+
 
 int main()
 {
-
 	//Server Test 
 	/*TCPServer s;+
 	s.start();
