@@ -103,6 +103,7 @@ void Preprocessor::compressDir(std::tuple<std::queue<std::string>, std::queue<uL
 
 	char dirName[MAX_NAME_LENGTH];
 	int dirNameLen = GetCurrentDirectory(MAX_NAME_LENGTH, dirName);
+	
 
 	std::string sliced = getRelativeDir(dirNameLen, dirName);
 
@@ -158,13 +159,17 @@ std::tuple<std::queue<std::string>, std::queue<uLong>> Preprocessor::listFiles(s
 	{
 		do
 		{
-			// read all (real) files in current folder
-			// , delete '!' read other 2 default folder . and ..
+			//Files
 			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
 				names.push(fd.cFileName);
 				sizes.push(fd.nFileSizeLow);
-				
+				std::cout << fd.cFileName << std::endl;
+			}
+			//SubDirectories, must recurse
+			else
+			{
+				std::cout << fd.cFileName << " <DIR> " <<  std::endl;
 			}
 		} while (::FindNextFile(hFind, &fd));
 		::FindClose(hFind);
