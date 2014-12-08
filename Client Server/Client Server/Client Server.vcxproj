@@ -127,6 +127,8 @@
     <ClCompile Include="TCPSocket.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CMDRunner.h" />
+    <ClInclude Include="database.h" />
     <ClInclude Include="preprocessor.h" />
     <ClInclude Include="TCPClient.h" />
     <ClInclude Include="TCPServer.hpp" />

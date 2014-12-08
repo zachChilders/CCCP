@@ -2,6 +2,8 @@
 #include "tcp_error_t.h"
 
 #include <fstream>
+#include <memory>
+#include <iostream>
 #include <string>
 #include <vector>
 #include <zlib.h>

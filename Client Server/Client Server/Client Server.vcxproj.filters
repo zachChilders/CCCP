@@ -50,5 +50,11 @@
     <ClInclude Include="preprocessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CMDRunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="database.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
