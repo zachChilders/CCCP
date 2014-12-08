@@ -5,7 +5,7 @@
 #include <fstream>
 #include <stdlib.h>
 #include <zlib.h>
-#include "sqlite3.h"
+#include "database.h"
 
 
 int main()
@@ -21,8 +21,23 @@ int main()
 
 	//s.stop();
 
-	Preprocessor p;
+	/*Preprocessor p;
 	std::tuple<std::queue<std::string>, std::queue<unsigned long>> tup = p.listFiles("./");
-	p.compressDir(tup, (MODE)0);
+	p.compressDir(tup, (MODE)0);*/
 	//p.decompressDir("./Debug/!zipped/bytes.!zp");
+	database d;
+	bool err = d.addUser("tylor", "password");
+	err = d.removeUser("tylor");
+
+	err = d.addCompiler("gcc");
+	err = d.removeCompiler("gcc");
+
+	err = d.addCompiler("gcc");
+	err = d.addFlag("gcc", "-f", true);
+	err = d.removeFlag("gcc", "-f");
+
+	err = d.addUser("tylor", "password");
+	err = d.addSetting("compile", "gcc -compilethis bitch.c", "tylor");
+	err = d.removeSetting("compile", "tylor");
+	std::string s = d.login("tylor", "password");
 }

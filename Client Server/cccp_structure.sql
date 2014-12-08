@@ -31,6 +31,7 @@ PRIMARY KEY ("id")
 DROP TABLE IF EXISTS "main"."flags";
 CREATE TABLE "flags" (
 "id"  INTEGER NOT NULL,
+"compiler"  INTEGER NOT NULL,
 "flags"  TEXT NOT NULL,
 "parameter"  INTEGER NOT NULL,
 PRIMARY KEY ("id"),
@@ -78,6 +79,7 @@ PRIMARY KEY ("id")
 -- ----------------------------
 DROP TABLE IF EXISTS "main"."system";
 CREATE TABLE "system" (
+"id"  INTEGER NOT NULL,
 "compiler"  TEXT NOT NULL,
-PRIMARY KEY ("compiler")
+PRIMARY KEY ("id")
 );
