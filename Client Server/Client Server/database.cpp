@@ -37,8 +37,7 @@ bool database::openDB()
 		return true;
 
 	//Check for db file.
-	FILE * dbFile;
-	fopen_s(&dbFile, DBFILE, "r");
+	FILE * dbFile = fopen(DBFILE, "r");
 
 	//Open db file regardless
 	int err = sqlite3_open_v2(DBFILE, &db, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, NULL);
@@ -154,7 +153,7 @@ bool database::removeCompiler(int id)
 	return true;
 }
 
-bool database::addFlag(std::string compiler, std::string flag, char parameter)
+bool database::addFlag(std::string compiler, std::string flag, int parameter)
 {
 	//Get compiler id by name
 	std::unique_ptr<int> id = std::unique_ptr<int>(new int(-1));
@@ -176,7 +175,7 @@ bool database::addFlag(std::string compiler, std::string flag, char parameter)
 	return true;
 }
 
-bool database::addFlag(int compiler, std::string flag, char parameter)
+bool database::addFlag(int compiler, std::string flag, int parameter)
 {
 	openDB();
 
@@ -297,16 +296,33 @@ bool database::removeSetting(std::string shortname, int user)
 
 	return true;
 }
-/*
-bool verifySys(std::string compiler)
-{
 
+bool database::verifySys(std::string compiler)
+{
+	std::unique_ptr<int> id = std::unique_ptr<int>(new int(-1));
+	openDB();
+
+	std::string sql = "SELECT id FROM system WHERE compiler = '" + compiler + "';";
+	lasterr = sqlite3_exec(db, sql.c_str(), getIDCallback, id.get(), nullptr);
+	closeDB();
+
+	if (*id > -1)
+		return true;
+
+	return false;
 }
 
-std::tuple<int, int> verifyFlag(std::string flag)
+int database::verifyFlag(std::string compiler, std::string flag)
 {
+	std::unique_ptr<int> id = std::unique_ptr<int>(new int(-1));
+	openDB();
 
-}*/
+	std::string sql = "SELECT flags.parameter FROM flags LEFT JOIN system ON system.compiler = '"+compiler+"' AND flags.compiler = system.id AND flags.flag = '"+flag+"';";
+	lasterr = sqlite3_exec(db, sql.c_str(), getIDCallback, id.get(), nullptr);
+	closeDB();
+
+	return *id;
+}
 
 std::string database::login(std::string username, std::string password)
 {

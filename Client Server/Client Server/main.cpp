@@ -33,8 +33,10 @@ int main()
 	err = d.removeCompiler("gcc");
 
 	err = d.addCompiler("gcc");
-	err = d.addFlag("gcc", "-f", true);
-	err = d.removeFlag("gcc", "-f");
+	err = d.addFlag("gcc", "f", 2);
+	err = d.verifySys("gcc");
+	int i = d.verifyFlag("gcc", "f");
+	err = d.removeFlag("gcc", "f");
 
 	err = d.addUser("tylor", "password");
 	err = d.addSetting("compile", "gcc -compilethis bitch.c", "tylor");

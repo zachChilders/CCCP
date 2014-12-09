@@ -21,8 +21,8 @@ std::string CCCP_CREATE = std::string("PRAGMA foreign_keys = OFF;") +
 "	\"compiler\"  INTEGER NOT NULL," +
 "	\"flag\"  TEXT NOT NULL," +
 "	\"parameter\"  INTEGER NOT NULL," +
-"	PRIMARY KEY(\"id\")," +
-"	CONSTRAINT \"bool\" CHECK(NOT parameter > 1 AND NOT parameter < 0)" +
+"	PRIMARY KEY(\"id\")" +
+//"	UNIQUE KEY(\"compiler\", \"flag\")," +
 "	);" +
 
 /*"-- ----------------------------" +

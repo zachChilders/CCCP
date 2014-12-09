@@ -83,8 +83,9 @@
       <AdditionalDependencies>sqlite3.lib;zdll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /d /y "$(ProjectDir)include\SQLite\sqlite3.dll" "$(OutDir)"</Command>
-      <Message>Copy sqlite3 dependency.</Message>
+      <Command>xcopy /d /y "$(ProjectDir)include\SQLite\sqlite3.dll" "$(OutDir)"
+xcopy /d /y "$(ProjectDir)zlib1.dll" "$(OutDir)"</Command>
+      <Message>Copy dependencies.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
