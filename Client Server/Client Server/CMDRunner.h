@@ -92,6 +92,7 @@ void CMDRunner::verifyCmd(std::string cmd)
 	}
 
 	//Run the command through winprocess.
+	CreateProcess(NULL, cmd.c_str);
 
 }
 

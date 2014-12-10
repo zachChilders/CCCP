@@ -167,7 +167,16 @@ std::tuple<std::queue<std::string>, std::queue<uLong>> Preprocessor::listFiles(s
 			//SubDirectories, must recurse
 			else
 			{
-				std::cout << fd.cFileName << " <DIR> " <<  std::endl;
+				std::tuple<std::queue<std::string>, std::queue<uLong>> tmpDir = listFiles(fd.cFileName);
+				std::queue<std::string>tmpNames = std::get<0>(tmpDir);
+				std::queue<uLong>tmpSizes = std::get<1>(tmpDir);
+				for (int i = 0; i < tmpNames.size(); i++)
+				{
+					names.push(tmpNames.front());
+					sizes.push(tmpSizes.front());
+					tmpNames.pop();
+					tmpSizes.pop();
+				}
 			}
 		} while (::FindNextFile(hFind, &fd));
 		::FindClose(hFind);
