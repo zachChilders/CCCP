@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <tuple>
 #include "sqlite3.h"
 
 class database
@@ -25,11 +24,10 @@ public:
 	bool removeCompiler(std::string name);
 	bool removeCompiler(int id);
 
-	bool addFlag(std::string compiler, std::string flag, char parameter);
-	bool addFlag(int compiler, std::string flag, char parameter);
+	bool addFlag(std::string compiler, std::string flag, int parameter);
+	bool addFlag(int compiler, std::string flag, int parameter);
 	bool removeFlag(std::string compiler, std::string flag);
 	bool removeFlag(int compiler, std::string flag);
-	bool removeFlag(int id);
 
 	bool addSetting(std::string shortname, std::string query, std::string user);
 	bool addSetting(std::string shortname, std::string query, int user);
@@ -37,7 +35,7 @@ public:
 	bool removeSetting(std::string shortname, int user);
 	
 	bool verifySys(std::string compiler);
-	std::tuple<int, int> verifyFlag(std::string flag);
+	int verifyFlag(std::string compiler, std::string flag);
 
-	int login(std::string username, std::string password);
+	std::string login(std::string username, std::string password);
 };

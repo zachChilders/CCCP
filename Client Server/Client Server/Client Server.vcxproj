@@ -120,6 +120,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="database.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Preprocessor.cpp" />
     <ClCompile Include="TCPClient.cpp" />
@@ -128,7 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMDRunner.h" />
+    <ClInclude Include="constants.h" />
     <ClInclude Include="database.h" />
+    <ClInclude Include="include\Encryption\md5.h" />
     <ClInclude Include="preprocessor.h" />
     <ClInclude Include="TCPClient.h" />
     <ClInclude Include="TCPServer.hpp" />
