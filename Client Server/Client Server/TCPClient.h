@@ -13,7 +13,7 @@ protected:
 
 public:
 	//Initializes Winsock, port, and address for connection
-	TCPClient(char* address);
+	TCPClient(const char* address);
 
 	//Cleans up winsock.
 	~TCPClient();

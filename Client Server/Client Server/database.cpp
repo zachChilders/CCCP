@@ -5,7 +5,7 @@
 #include <memory>
 #include <time.h>
 #include "constants.h"
-#include "md5.h"
+#include "include\Encryption\md5.h"
 
 
 database::database()

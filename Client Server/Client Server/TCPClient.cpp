@@ -1,6 +1,6 @@
 #include "TCPClient.h"
 
-TCPClient::TCPClient(char* address)
+TCPClient::TCPClient(const char* address)
 {
 	this->recvbuf = std::unique_ptr<byte>(new byte[DEFAULT_BUFLEN]);
 	this->address = address;
