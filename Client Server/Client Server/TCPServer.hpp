@@ -14,7 +14,6 @@ class TCPServer : public TCPSocket
 		SOCKET clientSocket;
 
 	private:
-		char recvbuf[DEFAULT_BUFLEN];
 		int res;
 		bool running;
 

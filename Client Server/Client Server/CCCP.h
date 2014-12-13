@@ -14,6 +14,9 @@ protected:
 
 	CryptoPP::SecByteBlock aesKey;
 	byte aesIV[CryptoPP::AES::DEFAULT_KEYLENGTH];
+	std::vector<byte>& encrypt(std::vector<byte>& data);
+	std::vector<byte>& encrypt(std::string data);
+	std::vector<byte>& decrypt(std::vector<byte>& data);
 
 	void send(std::string message);
 	std::string receive();

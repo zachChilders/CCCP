@@ -2,6 +2,9 @@
 
 using namespace std;
 using std::vector;
+
+//Returning with success does not necessarily mean the client received the message.
+//It just means the message fit in the buffer.
 tcp_error_t TCPSocket::sendBytes(vector<byte> data)
 {
 	const char* msg = (char*)&data[0];
@@ -13,7 +16,6 @@ tcp_error_t TCPSocket::sendBytes(vector<byte> data)
 		WSACleanup();
 		return CONNECTIONFAIL;
 	}
-	//std::cout << "Bytes sent: " << res << std::endl;
 	return SUCCESS;
 }
 
@@ -22,10 +24,8 @@ tcp_error_t TCPSocket::receiveBytes(vector<byte>& out)
 	int res = recv(connectSocket, (char*)recvbuf.get(), DEFAULT_BUFLEN, 0);
 	if (res > 0)
 	{
-		cout << endl;
 		for (int i = 0; i < res; i++)
 			out.push_back(recvbuf.get()[i]);
-		cout << endl;
 		return SUCCESS;
 	}
 	else

@@ -57,6 +57,6 @@ int main()
 		cccp = CCCP::Create(CCCP::State::server);
 
 	cccp->start();
-
+	system("pause");
 	return 0;
 }

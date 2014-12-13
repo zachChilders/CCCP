@@ -22,6 +22,8 @@ CCCPClient::~CCCPClient()
 void CCCPClient::promptPass()
 {
 	password = "";
+
+	//Prompt user for password, but keep it hidden.
 	char c;
 	while ((c = _getch()) != '\r')
 	{
@@ -55,31 +57,40 @@ void CCCPClient::start()
 	cout << "Enter password: ";
 	promptPass();	
 
-	connection = std::unique_ptr<TCPClient>(new TCPClient(ip.c_str()));
+	//Reset our unique pointer
+	connection.reset(new TCPClient(ip.c_str()));
 	username = user;
 	password = pass;
 
-	//First handshake: Key exchange
+	/*First handshake: Key exchange*/
 	AutoSeededRandomPool rnd;
 
 	aesKey = SecByteBlock(0x00, AES::DEFAULT_KEYLENGTH);
 	rnd.GenerateBlock(aesKey, aesKey.size());
 	rnd.GenerateBlock(aesIV, AES::BLOCKSIZE);
-	
+
+	//Message is our key then iv contiguously.
 	vector<byte> message;
 	message.reserve(AES::BLOCKSIZE * 2);
 	message.insert(message.end(), aesKey.begin(), aesKey.end());
 	message.insert(message.end(), std::begin(aesIV), std::end(aesIV));
 
-	CFB_Mode<AES>::Encryption cfbEncrypt;
-	cfbEncrypt.SetKeyWithIV(aesKey, aesKey.size(), aesIV);
-	cfbEncrypt.ProcessData(&(message[0]), &(message[0]), message.size());
-
 	cout << "Connecting to server...\n";
-
 	connection->start();
+
+	cout << "Encrypting connection...\n";
 	connection->sendBytes(message);
+
+	//Clear and decrypt the response.
+	message.clear();
 	connection->receiveBytes(message);
+	message = decrypt(message);
+
+	string response = string((char*)&message[0], message.size());
+	if (response != "OkieDokie")
+		cout << "Error encrypting connection.\n";
+	else
+		started = true;
 }
 
 void CCCPClient::stop()
