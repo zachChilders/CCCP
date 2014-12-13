@@ -40,9 +40,9 @@ class TCPSocket
 		virtual tcp_error_t stop() = 0;
 
 		tcp_error_t sendBytes(std::vector<byte> data);
-		tcp_error_t recieveBytes();
+		tcp_error_t receiveBytes(std::vector<byte>& out);
 
 		tcp_error_t sendString(std::string msg);
-		tcp_error_t recieveString();
+		tcp_error_t receiveString(std::string& out);
 		
 };

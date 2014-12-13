@@ -87,7 +87,7 @@ void TCPServer::listenOnSocket()
 		WSACleanup();
 		return;
 	}
-	std::cout << "Connection accepted" << std::endl;
+	//std::cout << "Connection accepted" << std::endl;
 }
 
 void TCPServer::work()
@@ -129,8 +129,14 @@ void TCPServer::work()
 
 tcp_error_t TCPServer::start()
 {
-	std::thread t(&TCPServer::__start__, this);
-	t.join();
+	open();
+	bindSocket();
+	listenOnSocket();
+	/*while (running)
+	{
+		listenOnSocket();
+		//work();
+	}*/
 	return SUCCESS;
 }
 
@@ -138,36 +144,5 @@ tcp_error_t TCPServer::stop()
 {
 	closesocket(connectSocket);
 	running = false;
-	return SUCCESS;
-}
-
-void TCPServer::__start__(void)
-{
-	open();
-	bindSocket();
-	while (running)
-	{
-		listenOnSocket();
-		work();
-	}
-
-}
-
-tcp_error_t TCPServer::sendString(std::string msg)
-{
-	int res = send(clientSocket, msg.c_str(), msg.length(), 0);
-	if (res == SOCKET_ERROR)
-	{
-		std::cout << "send failed with error: " << WSAGetLastError() << std::endl;
-		closesocket(clientSocket);
-		WSACleanup();
-		return CONNECTIONFAIL;
-	}
-	std::cout << "Bytes sent: " << res << std::endl;
-	return SUCCESS;
-}
-
-tcp_error_t TCPServer::recieveString()
-{
 	return SUCCESS;
 }

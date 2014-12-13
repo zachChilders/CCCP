@@ -1,12 +1,19 @@
 #include "CCCP.h"
-#include "CCPClient.h"
+#include "CCCPClient.h"
+#include "CCCPServer.h"
 
 
-CCCP::CCCP(){}
+CCCP::CCCP()
+{ 
+	started = false; 
+}
 
-CCCP& CCCP::Create(CCCP::State type)
+CCCP* CCCP::Create(CCCP::State type)
 {
-	return *(new CCCPClient());
+	if (type == State::client)
+		return new CCCPClient();
+	else
+		return new CCCPServer();
 }
 
 void CCCP::command(std::string command)

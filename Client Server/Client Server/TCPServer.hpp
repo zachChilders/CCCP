@@ -2,10 +2,9 @@
 #include "TCPSocket.hpp"
 
 #include <iostream>
-#include <thread>
 #include <vector>
 
-class TCPServer : TCPSocket
+class TCPServer : public TCPSocket
 {
 	public:
 		TCPServer();
@@ -25,11 +24,4 @@ class TCPServer : TCPSocket
 		void bindSocket();
 		void listenOnSocket();
 		void work();
-		void __start__();
-
-		tcp_error_t sendBytes(std::vector<byte> data);
-		tcp_error_t recieveBytes();
-
-		tcp_error_t sendString(std::string msg);
-		tcp_error_t recieveString();
 };

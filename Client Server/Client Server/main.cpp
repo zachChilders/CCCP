@@ -14,13 +14,13 @@ int main()
 	//Server Test 
 	/*TCPServer s;+
 	s.start();
-	*/
+	
 	//Client Test
-	//TCPClient c("172.22.1.82");
-	//c.start();
-	//c.stop();
+	TCPClient c("172.22.1.82");
+	c.start();
+	c.stop();
 
-	//s.stop();
+	s.stop();*/
 
 	/*Preprocessor p;
 	std::tuple<std::queue<std::string>, std::queue<unsigned long>> tup = p.listFiles("./");
@@ -46,8 +46,17 @@ int main()
 	err = d.removeSetting("compile", "tylor");
 	std::string s = d.login("tylor", "password");*/
 
-	CCCP& cccp = CCCP::Create(CCCP::State::client);
-	cccp.start();
+	std::cout << "[0]Server | [1]Client: ";
+	int i = 0;
+	std::cin >> i;
+
+	CCCP* cccp;
+	if (i > 0)
+		cccp = CCCP::Create(CCCP::State::client);
+	else
+		cccp = CCCP::Create(CCCP::State::server);
+
+	cccp->start();
 
 	return 0;
 }

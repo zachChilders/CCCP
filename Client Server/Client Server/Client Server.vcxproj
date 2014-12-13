@@ -81,9 +81,14 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>cryptopp.lib;sqlite3.lib;zdll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dlltest.lib;cryptopp.lib;sqlite3.lib;zdll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /d /y "$(ProjectDir)lib\*.dll" "$(OutDir)"
+xcopy /d /y "$(ProjectDir)*.dll" "$(OutDir)"
+xcopy /d /y "$(ProjectDir)include\SQLite\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -123,8 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CCCP.cpp" />
-    <ClCompile Include="CCPClient.cpp" />
-    <ClCompile Include="CCPServer.cpp" />
+    <ClCompile Include="CCCPClient.cpp" />
+    <ClCompile Include="CCCPServer.cpp" />
     <ClCompile Include="database.cpp" />
     <ClCompile Include="include\Encryption\md5.cpp" />
     <ClCompile Include="main.cpp" />
@@ -135,8 +140,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCCP.h" />
-    <ClInclude Include="CCPClient.h" />
-    <ClInclude Include="CCPServer.h" />
+    <ClInclude Include="CCCPClient.h" />
+    <ClInclude Include="CCCPServer.h" />
     <ClInclude Include="CMDRunner.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="database.h" />
