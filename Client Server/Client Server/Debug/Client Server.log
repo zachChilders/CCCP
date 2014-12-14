@@ -1,20 +1,31 @@
-﻿Build started 12/13/2014 7:21:31 PM.
-     1>Project "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" on node 2 (Build target(s)).
+﻿Build started 12/13/2014 5:23:36 PM.
+     1>Project "C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I./include/SQLite /I./include/Encryption /I./include /I"E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include" /I"E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\include" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CCCP.cpp CCCPServerCommands.cpp
-         CCCPServerCommands.cpp
-     1>e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\cccpservercommands.cpp(23): warning C4018: '<' : signed/unsigned mismatch
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I./include/SQLite /I./include/Encryption /I./include /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include" /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\include" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CCCP.cpp CCCPClient.cpp CCCPServer.cpp database.cpp include\Encryption\md5.cpp main.cpp Preprocessor.cpp TCPClient.cpp TCPServer.cpp TCPSocket.cpp
+         TCPSocket.cpp
+         TCPServer.cpp
+         TCPClient.cpp
+         Preprocessor.cpp
+     1>c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\preprocessor.cpp(134): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\preprocessor.cpp(153): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
+     1>c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\preprocessor.cpp(173): warning C4018: '<' : signed/unsigned mismatch
+         main.cpp
+         md5.cpp
+     1>c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\include\encryption\md5.cpp(342): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
+         database.cpp
+     1>c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\database.cpp(40): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(211) : see declaration of 'fopen'
+     1>c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\database.cpp(346): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+         CCCPServer.cpp
+         CCCPClient.cpp
          CCCP.cpp
          Generating Code...
-     1>e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\cccpservercommands.cpp(184): warning C4715: 'CCCPServer::cmdLogin' : not all control paths return a value
-     1>e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\cccpservercommands.cpp(206): warning C4715: 'CCCPServer::cmdAddUser' : not all control paths return a value
        Link:
-         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.exe" /INCREMENTAL /NOLOGO dlltest.lib cryptopp.lib sqlite3.lib zdll.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.lib" /MACHINE:X86 Debug\CCCP.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.exe" /INCREMENTAL /NOLOGO dlltest.lib cryptopp.lib sqlite3.lib zdll.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.lib" /MACHINE:X86 Debug\CCCP.obj
          Debug\CCCPClient.obj
-         Debug\CCCPClientCommands.obj
-         Debug\CCCPCommands.obj
          Debug\CCCPServer.obj
-         Debug\CCCPServerCommands.obj
          Debug\database.obj
          Debug\md5.obj
          Debug\main.obj
@@ -22,17 +33,10 @@
          Debug\TCPClient.obj
          Debug\TCPServer.obj
          Debug\TCPSocket.obj
-         Client Server.vcxproj -> E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.exe
-       PostBuildEvent:
-         xcopy /d /y "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\lib\*.dll" "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\"
-         xcopy /d /y "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\*.dll" "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\"
-         xcopy /d /y "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\include\SQLite\*.dll" "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\"
-         :VCEnd
-         0 File(s) copied
-         0 File(s) copied
-         0 File(s) copied
-     1>Done Building Project "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" (Build target(s)).
+     1>LINK : fatal error LNK1104: cannot open file 'dlltest.lib'
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets(607,5): error MSB6006: "link.exe" exited with code 1104.
+     1>Done Building Project "C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:01.57
+Time Elapsed 00:00:06.20
