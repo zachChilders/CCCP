@@ -38,4 +38,5 @@ public:
 	int verifyFlag(std::string compiler, std::string flag);
 
 	std::string login(std::string username, std::string password);
+	int getUser(std::string sessionKey);
 };

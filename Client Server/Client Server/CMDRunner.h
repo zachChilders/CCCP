@@ -20,6 +20,7 @@ class CMDRunner
 		~CMDRunner();
 
 		void setDB(database* database);
-		void verifyCmd(std::string cmd);
+		bool verifyCmd(std::string cmd);
+		void run(std::string cmd);
 };
 

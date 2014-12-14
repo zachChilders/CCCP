@@ -1,5 +1,6 @@
 #include "CCCPServer.h"
 #include "database.h"
+#include "CMDRunner.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -61,40 +62,45 @@ bool CCCPServer::command(vector<string>& parameters, bool local)
 		parameters.erase(parameters.begin());
 		cmdAddUser(parameters);
 	}
-	else if (parameters[0] == "removeuser")
+	else if (parameters[0] == "removeuser" && local)
 	{
 		parameters.erase(parameters.begin());
 		cmdRemoveUser(parameters);
 	}
-	else if (parameters[0] == "addcompiler")
+	else if (parameters[0] == "addcompiler" && local)
 	{
 		parameters.erase(parameters.begin());
 		cmdAddCompiler(parameters);
 	}
-	else if (parameters[0] == "removecompiler")
+	else if (parameters[0] == "removecompiler" && local)
 	{
 		parameters.erase(parameters.begin());
 		cmdRemoveCompiler(parameters);
 	}
-	else if (parameters[0] == "addflag")
+	else if (parameters[0] == "addflag" && local)
 	{
 		parameters.erase(parameters.begin());
 		cmdAddFlag(parameters);
 	}
-	else if (parameters[0] == "removeflag")
+	else if (parameters[0] == "removeflag" && local)
 	{
 		parameters.erase(parameters.begin());
 		cmdRemoveFlag(parameters);
 	}
-	else if (parameters[0] == "addSetting")
+	else if (parameters[0] == "addsetting")
 	{
 		parameters.erase(parameters.begin());
-		cmdAddSetting(parameters);
+		cmdAddSetting(parameters, local);
 	}
-	else if (parameters[0] == "removeSetting")
+	else if (parameters[0] == "removesetting")
 	{
 		parameters.erase(parameters.begin());
-		cmdRemoveSetting(parameters);
+		cmdRemoveSetting(parameters, local);
+	}
+	else if (parameters[0] == "login")
+	{
+		parameters.erase(parameters.begin());
+		cmdLogin(parameters);
 	}
 	else
 		return false;
@@ -211,6 +217,8 @@ bool CCCPServer::cmdLogin(std::vector<std::string>& parameters)
 		send("failure No such username or password.");
 	else
 		send("sessionid " + sessionKey);
+
+	return true;
 }
 
 bool CCCPServer::cmdAddUser(std::vector<std::string>& parameters)
@@ -233,17 +241,18 @@ bool CCCPServer::cmdAddUser(std::vector<std::string>& parameters)
 	db.addUser(username, password);
 	cout << "User " + username + " added.\n";
 	cin.ignore();
+
+	return true;
 }
 
 bool CCCPServer::cmdRemoveUser(std::vector<std::string>& parameters)
 {
 	database db;
-	bool status = false;
 
 	if (parameters.size() == 1)
 	{
 		if (!db.removeUser(parameters[0]))
-			cerr << "No user " + parameters[0];
+			cerr << "No user " + parameters[0] + '\n';
 
 		return true;
 	}
@@ -253,29 +262,255 @@ bool CCCPServer::cmdRemoveUser(std::vector<std::string>& parameters)
 	cout << "Username: ";
 	cin >> username;
 
-	db.addUser(username, password);
-	cout << "User " + username + " added.\n";
-	cin.ignore();
+	if(db.removeUser(username))
+		cout << "User " + username + " removed.\n";
+	else
+		cerr << "No user " + parameters[0] + '\n';
+
+	return true;
 }
 
 bool CCCPServer::cmdAddCompiler(std::vector<std::string>& parameters)
 {
 	database db;
 
-	if (parameters.size() == 2)
+	if (parameters.size() == 1)
 	{
-		db.addUser(parameters[0], parameters[1]);
+		db.addCompiler(parameters[0]);
 		return true;
 	}
 
-	string username, password;
+	string compiler;
 
-	cout << "Username: ";
-	cin >> username;
-	cout << "Password: ";
-	password = promptPass();
+	cout << "Compiler name: ";
+	cin >> compiler;
 
-	db.addUser(username, password);
-	cout << "User " + username + " added.\n";
+	db.addCompiler(compiler);
+	cout << "Compiler " + compiler + " added.\n";
 	cin.ignore();
+	return true;
+}
+
+bool CCCPServer::cmdRemoveCompiler(std::vector<std::string>& parameters)
+{
+	database db;
+
+	if (parameters.size() == 1)
+	{
+		if (!db.removeUser(parameters[0]))
+			cerr << "No user " + parameters[0] + '\n';
+
+		return true;
+	}
+
+	string compiler;
+
+	cout << "Compiler name: ";
+	cin >> compiler;
+
+	if (db.removeUser(compiler))
+		cout << "Compiler " + compiler + " removed.\n";
+	else
+		cerr << "No compiler " + parameters[0] + ".\n";
+
+	cin.ignore();
+	return true;
+}
+
+bool CCCPServer::cmdAddFlag(std::vector<std::string>& parameters)
+{
+	database db;
+
+	if (parameters.size() == 2)
+	{
+		db.addFlag(parameters[0], parameters[1], false);
+		return true;
+	}
+	else if (parameters.size() == 3)
+	{
+		db.addFlag(parameters[0], parameters[1], true);
+		return true;
+	}
+
+	string compiler, flag;
+	char parameter;
+
+	cout << "Compiler name: ";
+	cin >> compiler;
+
+	if (!db.verifySys(compiler))
+	{
+		char a;
+		cout << "Compiler does not exist. Would you like to add it? (Y/n)";
+		cin >> a;
+
+		if (a == 'Y' || a == 'y')
+			db.addCompiler(compiler);
+		else
+		{
+			cerr << "Adding flag cancelled.\n";
+			return true;
+		}
+	}
+
+	cout << "Flag (no - or /): ";
+	cin >> flag;
+
+	cout << "Parameter?(Y/n): ";
+	cin >> parameter;
+
+	bool status;
+
+	if (parameter == 'n' || parameter == 'N')
+		status = db.addFlag(compiler, flag, false);
+	else
+		status = db.addFlag(compiler, flag, true);
+
+	if (status)
+		cout << "Flag " + flag + " for compiler " + compiler + " added.\n";
+	else
+		cerr << "Flag " + flag + " not added.\n";
+	cin.ignore();
+	return true;
+}
+
+bool CCCPServer::cmdRemoveFlag(std::vector<std::string>& parameters)
+{
+	database db;
+
+	if (parameters.size() == 2)
+	{
+		if (!db.removeFlag(parameters[0], parameters[1]))
+			cerr << "No user " + parameters[0] + '\n';
+
+		return true;
+	}
+
+	string compiler, flag;
+
+	cout << "Compiler name: ";
+	cin >> compiler;
+
+	cout << "Flag name: ";
+	cin >> flag;
+
+	if (db.removeFlag(compiler, flag))
+		cout << "Flag " + flag + " for compiler " + compiler + " removed.\n";
+	else
+		cerr << "No flag " + flag + " for compiler " + compiler + ".\n";
+	cin.ignore();
+	return true;
+}
+
+bool CCCPServer::cmdAddSetting(vector<string>& parameters, bool local)
+{
+	string shortname, query = "", user;
+	if (parameters.size() < 2 && !local)
+	{
+		cerr << "failure Usage: addsetting shortname query";
+		return true;
+	}
+
+	database db;
+	
+	if (!local)
+	{
+		for (int i = 1; i < parameters.size(); i++)
+			query += (i > 1 ? " " : "") + parameters[i];
+
+		CMDRunner cmd;
+		cmd.setDB(&db);
+		if (cmd.verifyCmd(query))
+		{
+			int user = db.getUser(sessionKey);
+			if (db.addSetting(parameters[0], query, user))
+				cout << "Setting " + shortname + " saved.\n";
+			else
+				cerr << "Could not add " + shortname + "\n";
+			return true;
+		}
+		else
+		{
+			cerr << "failure Query could not be verified.";
+			return true;
+		}
+	}
+
+	if (local && parameters.size() < 1)
+	{
+		cout << "Shortname: ";
+		cin >> shortname;
+	}
+	else
+		shortname = parameters[0];
+	
+	if (local && parameters.size() < 2)
+	{
+		cout << "User: ";
+		cin >> user;
+	}
+	else
+		user = parameters[1];
+
+	if (local && parameters.size() < 3)
+	{
+		cout << "Query: ";
+		cin.ignore();
+		std::getline(cin, query);
+	}
+	else
+		for (int i = 2; i < parameters.size(); i++)
+			query += (i > 0 ? " " : "") + parameters[i];
+
+	if (db.addSetting(shortname, query, user))
+		cout << "Setting " + shortname + " added.\n";
+	else
+		cout << "Could not add setting.\n";
+
+	return true;
+}
+
+bool CCCPServer::cmdRemoveSetting(std::vector<std::string>& parameters, bool local)
+{
+	string shortname, query = "", user;
+	if (parameters.size() < 1 && !local)
+	{
+		cerr << "failure Usage: removesetting shortname\n";
+		return true;
+	}
+
+	database db;
+
+	if (!local)
+	{
+		for (int i = 0; i < parameters.size(); i++)
+			query += parameters[i];
+
+		int user = db.getUser(sessionKey);
+		if (db.removeSetting(shortname, user))
+			cout << "Setting " + shortname + " removed.\n";
+		else
+			cerr << "No settings removed.\n";
+
+		return true;
+	}
+
+	if (local && parameters.size() < 1)
+	{
+		cout << "Shortname: ";
+		cin >> shortname;
+	}
+
+	if (local && parameters.size() < 2)
+	{
+		cout << "User: ";
+		cin >> user;
+	}
+
+	if (db.removeSetting(shortname, user))
+		cout << "Setting " + shortname + " removed.\n";
+	else
+		cerr << "No settings removed.\n";
+	cin.ignore();
+	return true;
 }

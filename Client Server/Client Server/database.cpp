@@ -354,3 +354,15 @@ std::string database::login(std::string username, std::string password)
 
 	return cert;
 }
+
+int database::getUser(std::string sessionKey)
+{
+	std::unique_ptr<int> id = std::unique_ptr<int>(new int(-1));
+	openDB();
+
+	std::string sql = "SELECT user FROM session WHERE cert = X'" + sessionKey + "';";
+	lasterr = sqlite3_exec(db, sql.c_str(), getIDCallback, id.get(), nullptr);
+	closeDB();
+
+	return *id;
+}

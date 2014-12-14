@@ -17,6 +17,8 @@ private:
 
 	bool cmdRequest(std::vector<std::string>& parameters);
 	bool cmdSessionID(std::vector<std::string>& parameters);
+	bool cmdAddSetting(std::vector<std::string>& parameters);
+	bool cmdRemoveSetting(std::vector<std::string>& parameters);
 public:
 	~CCCPClient();
 

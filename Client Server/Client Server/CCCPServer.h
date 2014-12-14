@@ -12,7 +12,11 @@ private:
 	bool cmdAddUser(std::vector<std::string>& parameters);
 	bool cmdRemoveUser(std::vector<std::string>& parameters);
 	bool cmdAddCompiler(std::vector<std::string>& parameters);
-
+	bool cmdRemoveCompiler(std::vector<std::string>& parameters);
+	bool cmdAddFlag(std::vector<std::string>& parameters);
+	bool cmdRemoveFlag(std::vector<std::string>& parameters);
+	bool cmdAddSetting(std::vector<std::string>& parameters, bool local);
+	bool cmdRemoveSetting(std::vector<std::string>& parameters, bool local);
 
 protected:
 	void work();

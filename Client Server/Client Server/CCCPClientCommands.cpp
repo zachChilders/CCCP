@@ -54,6 +54,11 @@ bool CCCPClient::command(vector<string>& parameters, bool local)
 		parameters.erase(parameters.begin());
 		return cmdSessionID(parameters);
 	}
+	else if (parameters[0] == "addsetting")
+	{
+		parameters.erase(parameters.begin());
+		return cmdAddSetting(parameters);
+	}
 	else
 		return false;
 
@@ -83,6 +88,33 @@ bool CCCPClient::cmdSessionID(std::vector<std::string>& parameters)
 	}
 	
 	sessionKey = parameters[0];
+
+	return true;
+}
+
+bool CCCPClient::cmdAddSetting(std::vector<std::string>& parameters)
+{
+	string shortname, query = "", user;
+
+	if (parameters.size() < 1)
+	{
+		cout << "Shortname: ";
+		cin >> shortname;
+	}
+	else
+		shortname = parameters[0];
+
+	if (parameters.size() < 2)
+	{
+		cout << "Query: ";
+		cin.ignore();
+		std::getline(cin, query);
+	}
+	else
+		for (int i = 2; i < parameters.size(); i++)
+			query += (i > 0 ? " " : "") + parameters[i];
+
+	send("addsetting " + shortname + ' ' + query);
 
 	return true;
 }

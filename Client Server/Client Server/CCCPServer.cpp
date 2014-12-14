@@ -1,5 +1,6 @@
 #include "CCCPServer.h"
 #include "TCPServer.hpp"
+#include "database.h"
 #include <iostream>
 #include <string>
 #include <thread>
@@ -76,6 +77,8 @@ void CCCPServer::stop()
 	started = false;
 	connected = false;
 	encrypted = false;
+	database db;
+	//db.
 }
 
 void CCCPServer::compile()

@@ -16,7 +16,7 @@ void CMDRunner::setDB(database* database)
 	db = database;
 }
 
-void CMDRunner::verifyCmd(std::string cmd)
+bool CMDRunner::verifyCmd(std::string cmd)
 {
 	//Split into string array
 	std::vector<std::string> cmdTokens;
@@ -32,7 +32,7 @@ void CMDRunner::verifyCmd(std::string cmd)
 	if (!db->verifySys(cmdTokens[0]))
 	{
 		std::cerr << "Invalid compiler." << std::endl;
-		return;
+		return false;
 	}
 
 	//Use regex to find the flags
@@ -54,7 +54,7 @@ void CMDRunner::verifyCmd(std::string cmd)
 					if (std::regex_match(cmdTokens[i + j], r))
 					{
 						std::cerr << "Invalid parameter: " << cmdTokens[i + j] << std::endl;
-						return;
+						return false;
 					}
 				}
 				//If we get this far, we should skip ahead to the next flag	
@@ -63,11 +63,16 @@ void CMDRunner::verifyCmd(std::string cmd)
 			else
 			{
 				std::cerr << "Invalid flag: " << cmdTokens[i] << std::endl;
-				return;
+				return false;
 			}
 		}
 	}
 
+	return true;
+}
+
+void CMDRunner::run(std::string cmd)
+{
 	//Run the command through winprocess.
 
 	STARTUPINFO si;				//You know what pisses me off?

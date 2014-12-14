@@ -1,14 +1,19 @@
-﻿Build started 12/13/2014 7:38:57 PM.
-     1>Project "C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" on node 2 (Build target(s)).
+﻿Build started 12/13/2014 10:01:37 PM.
+     1>Project "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I./include/SQLite /I./include/Encryption /I./include /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include" /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\include" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CMDRunner.cpp
-         CMDRunner.cpp
-     1>c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\cmdrunner.cpp(41): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\cmdrunner.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'DWORD', possible loss of data
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I./include/SQLite /I./include/Encryption /I./include /I"E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include" /I"E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\include" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CCCPServerCommands.cpp
+         CCCPServerCommands.cpp
+     1>e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\cccpservercommands.cpp(24): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\cccpservercommands.cpp(418): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\cccpservercommands.cpp(462): warning C4018: '<' : signed/unsigned mismatch
+     1>e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\cccpservercommands.cpp(486): warning C4018: '<' : signed/unsigned mismatch
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.exe" /INCREMENTAL /NOLOGO dlltest.lib cryptopp.lib sqlite3.lib zdll.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.lib" /MACHINE:X86 Debug\CCCP.obj
+         E:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.exe" /INCREMENTAL /NOLOGO dlltest.lib cryptopp.lib sqlite3.lib zdll.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.lib" /MACHINE:X86 Debug\CCCP.obj
          Debug\CCCPClient.obj
+         Debug\CCCPClientCommands.obj
+         Debug\CCCPCommands.obj
          Debug\CCCPServer.obj
+         Debug\CCCPServerCommands.obj
          Debug\CMDRunner.obj
          Debug\database.obj
          Debug\md5.obj
@@ -17,9 +22,17 @@
          Debug\TCPClient.obj
          Debug\TCPServer.obj
          Debug\TCPSocket.obj
-     1>LINK : fatal error LNK1104: cannot open file 'dlltest.lib'
-     1>Done Building Project "C:\Users\Zach\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" (Build target(s)) -- FAILED.
+         Client Server.vcxproj -> E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.exe
+       PostBuildEvent:
+         xcopy /d /y "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\lib\*.dll" "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\"
+         xcopy /d /y "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\*.dll" "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\"
+         xcopy /d /y "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\include\SQLite\*.dll" "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\"
+         :VCEnd
+         0 File(s) copied
+         0 File(s) copied
+         0 File(s) copied
+     1>Done Building Project "E:\Users\Tylor\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:01.28
+Time Elapsed 00:00:01.05
