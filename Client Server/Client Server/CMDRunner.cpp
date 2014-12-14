@@ -77,10 +77,11 @@ void CMDRunner::verifyCmd(std::string cmd)
 	si.cb = sizeof(si);
 	ZeroMemory(&pi, sizeof(si));
 
-	CreateProcess(NULL,					//Name
-				  cmd.c_str,			//Command line
-				  FALSE,				//inherit flags?
-				  NULL,					//Security attributes
+	CreateProcessA(NULL,				//Name
+				  (LPSTR)cmd.c_str(),   			//Command line
+				  FALSE,				//Security
+				  FALSE,				//Security attributes
+				  NULL,					//inherit flags?
 				  NORMAL_PRIORITY_CLASS,//process priority
 				  NULL,					//environment 
 				  NULL,					//current directory
