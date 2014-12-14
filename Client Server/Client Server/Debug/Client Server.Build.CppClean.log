@@ -10,20 +10,29 @@ e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\tcpclient.obj
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\tcpserver.obj
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\tcpsocket.obj
+e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\cccpclient.obj
+e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\cccpserver.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\vc120.pdb
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\vc120.idb
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\cccp.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\cccpclient.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\cccpserver.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\database.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\md5.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\main.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\preprocessor.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\tcpclient.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\tcpserver.obj
+c:\users\zach\documents\visual studio 2013\projects\cccp\client server\client server\debug\tcpsocket.obj
+e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\debug\client server.ilk
+e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\debug\client server.exe
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\debug\client server.pdb
+e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\cccpclientcommands.obj
+e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\cccpcommands.obj
+e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\cccpservercommands.obj
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\cl.command.1.tlog
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\cl.read.1.tlog
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\cl.write.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link-cvtres.read.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link-cvtres.write.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link-rc.read.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link-rc.write.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link.8392-cvtres.read.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link.8392-cvtres.write.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link.8392-rc.read.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link.8392-rc.write.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link.8392.read.1.tlog
-e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link.8392.write.1.tlog
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link.command.1.tlog
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link.read.1.tlog
 e:\users\tylor\skydrive\documents\visual studio 2013\projects\cccp\client server\client server\debug\client server.tlog\link.write.1.tlog

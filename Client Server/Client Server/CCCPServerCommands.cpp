@@ -234,3 +234,48 @@ bool CCCPServer::cmdAddUser(std::vector<std::string>& parameters)
 	cout << "User " + username + " added.\n";
 	cin.ignore();
 }
+
+bool CCCPServer::cmdRemoveUser(std::vector<std::string>& parameters)
+{
+	database db;
+	bool status = false;
+
+	if (parameters.size() == 1)
+	{
+		if (!db.removeUser(parameters[0]))
+			cerr << "No user " + parameters[0];
+
+		return true;
+	}
+
+	string username;
+
+	cout << "Username: ";
+	cin >> username;
+
+	db.addUser(username, password);
+	cout << "User " + username + " added.\n";
+	cin.ignore();
+}
+
+bool CCCPServer::cmdAddCompiler(std::vector<std::string>& parameters)
+{
+	database db;
+
+	if (parameters.size() == 2)
+	{
+		db.addUser(parameters[0], parameters[1]);
+		return true;
+	}
+
+	string username, password;
+
+	cout << "Username: ";
+	cin >> username;
+	cout << "Password: ";
+	password = promptPass();
+
+	db.addUser(username, password);
+	cout << "User " + username + " added.\n";
+	cin.ignore();
+}

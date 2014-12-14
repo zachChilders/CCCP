@@ -10,6 +10,9 @@ private:
 	bool cmdRequest(std::vector<std::string>& parameters);
 	bool cmdLogin(std::vector<std::string>& parameters);
 	bool cmdAddUser(std::vector<std::string>& parameters);
+	bool cmdRemoveUser(std::vector<std::string>& parameters);
+	bool cmdAddCompiler(std::vector<std::string>& parameters);
+
 
 protected:
 	void work();
