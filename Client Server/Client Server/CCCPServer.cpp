@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include <thread>
-#include <conio.h>
 
 using std::cout;
 using std::cin;
@@ -53,6 +52,7 @@ reset:
 	send("OkieDokie");
 	connected = true;
 
+	//Check for login. If fail, reset the server.
 	send("request login");
 	command(receiveString());
 	if (sessionKey.empty())
@@ -77,8 +77,6 @@ void CCCPServer::stop()
 	connected = false;
 	encrypted = false;
 }
-
-
 
 void CCCPServer::compile()
 {

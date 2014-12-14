@@ -4,6 +4,7 @@
 #include <iostream>
 #include <modes.h>
 #include <string>
+#include <conio.h>
 
 using std::cin;
 using std::cout;
@@ -100,4 +101,30 @@ std::vector<byte>& CCCP::decrypt(std::vector<byte>& message)
 	cfbDecrypt.ProcessData(&(*data)[0], &(message[0]), message.size());
 
 	return *data;
+}
+
+string CCCP::promptPass()
+{
+	string password = "";
+
+	//Prompt user for password, but keep it hidden.
+	char c;
+	while ((c = _getch()) != '\r')
+	{
+
+		if (c == '\b'){
+			if (password.length() > 0){
+				cout << "\b \b";
+				password.pop_back();
+			}
+		}
+		else
+		{
+			password += c;
+			cout << '*';
+		}
+	}
+	cout << std::endl;
+	
+	return password;
 }

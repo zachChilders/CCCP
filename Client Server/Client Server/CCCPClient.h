@@ -9,7 +9,6 @@ private:
 	std::string password;
 	
 	void login();
-	void promptPass();
 	void work();
 	void listen();
 	void prompt();

@@ -4,6 +4,7 @@
 #include <exception>
 #include <memory>
 #include <time.h>
+#include <algorithm>
 #include "constants.h"
 #include "include\Encryption\md5.h"
 
@@ -28,6 +29,7 @@ int getIDCallback(void* idStore, int colCount, char** values, char** colNames)
 
 std::string database::generatePassword(std::string username, std::string password)
 {
+	std::transform(username.begin(), username.end(), username.begin(), ::tolower);
 	return md5(username + password);
 }
 

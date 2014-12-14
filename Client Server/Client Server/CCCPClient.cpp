@@ -5,7 +5,6 @@
 #include <osrng.h>
 #include <vector>
 #include <iterator>
-#include <conio.h>
 #include <thread>
 
 using std::cout;
@@ -20,30 +19,6 @@ using namespace CryptoPP;
 CCCPClient::~CCCPClient()
 {
 	stop();
-}
-
-void CCCPClient::promptPass()
-{
-	password = "";
-
-	//Prompt user for password, but keep it hidden.
-	char c;
-	while ((c = _getch()) != '\r')
-	{
-
-		if (c == '\b'){
-			if (password.length() > 0){
-				cout << "\b \b";
-				password.pop_back();
-			}
-		}
-		else
-		{
-			password += c;
-			cout << '*';
-		}
-	}
-	cout << std::endl;
 }
 
 void CCCPClient::start()
@@ -128,7 +103,7 @@ void CCCPClient::login()
 	cout << "Enter username: ";
 	cin >> username;
 	cout << "Enter password: ";
-	promptPass();
+	password = promptPass();
 	
 	send("login " + username + ' ' + password);
 	command(receiveString());

@@ -27,6 +27,8 @@ protected:
 
 	std::unique_ptr<TCPSocket> connection;
 
+	std::string promptPass();
+
 	CryptoPP::SecByteBlock aesKey;
 	byte aesIV[CryptoPP::AES::DEFAULT_KEYLENGTH];
 	std::vector<byte>& encrypt(std::vector<byte>& data);
