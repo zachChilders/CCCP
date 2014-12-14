@@ -10,7 +10,7 @@ TCPServer::TCPServer()
 	res = WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (res != 0)
 	{
-		std::cout << "WSAStartup Failed: " << res << std::endl;
+		std::cerr << "WSAStartup Failed: " << res << std::endl;
 		return;
 	}
 
@@ -25,7 +25,7 @@ TCPServer::TCPServer()
 	res = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
 	if (res != 0)
 	{
-		std::cout << "getaddrinfo failed: " << res << std::endl;
+		std::cerr << "getaddrinfo failed: " << res << std::endl;
 		WSACleanup();
 		return;
 	}
@@ -44,7 +44,7 @@ void TCPServer::open()
 	clientSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 	if (clientSocket == INVALID_SOCKET)
 	{
-		std::cout << "Error at socket: " << WSAGetLastError() << std::endl;
+		std::cerr << "Error at socket: " + WSAGetLastError() + '\n';
 		freeaddrinfo(result);
 		WSACleanup();
 		return;
@@ -57,7 +57,7 @@ void TCPServer::bindSocket()
 	{
 		if (res == SOCKET_ERROR)
 		{
-			std::cout << "Bind failed with error: " << WSAGetLastError() << std::endl;
+			std::cerr << "Bind failed with error: " + WSAGetLastError() + '\n';
 			freeaddrinfo(result);
 			closesocket(clientSocket);
 			WSACleanup();
@@ -72,22 +72,30 @@ void TCPServer::listenOnSocket()
 {
 	if (listen(clientSocket, SOMAXCONN) == SOCKET_ERROR)
 	{
-		std::cout << "Listen failed with error: " << WSAGetLastError() << std::endl;
+		std::cerr << "Listen failed with error: " + WSAGetLastError() + '\n';
 		freeaddrinfo(result);
 		closesocket(clientSocket);
 		WSACleanup();
 		return;
 	}
 
-	connectSocket = accept(clientSocket, NULL, NULL);
+	SOCKADDR_IN client_info = { 0 };
+	int addrsize = sizeof(client_info);
+
+	connectSocket = accept(clientSocket, (struct sockaddr*)&client_info, &addrsize);
 	if (connectSocket == INVALID_SOCKET)
 	{
-		std::cout << "Accept failed; " << WSAGetLastError() << std::endl;
-		closesocket(connectSocket);
+		std::cerr << "Accept failed; " + WSAGetLastError() + '\n';
+		closesocket(clientSocket);
 		WSACleanup();
 		return;
 	}
 	closesocket(clientSocket);
+	addrsize = sizeof(client_info);
+	getpeername(connectSocket, (struct sockaddr*)&client_info, &addrsize);
+
+	ipAddress = inet_ntoa(client_info.sin_addr);
+
 	//std::cout << "Connection accepted" << std::endl;
 }
 /*

@@ -33,7 +33,7 @@ class TCPSocket
 
 		std::unique_ptr<byte> recvbuf;
 		std::unique_ptr<byte> sendbuff;
-
+		std::string ipAddress;
 
 	public:
 		virtual tcp_error_t start() = 0;
@@ -45,4 +45,6 @@ class TCPSocket
 		tcp_error_t sendString(std::string msg);
 		tcp_error_t receiveString(std::string& out);
 		
+		std::string getIP(){ return ipAddress; }
+		SOCKET& getSocket(){ return connectSocket; }
 };

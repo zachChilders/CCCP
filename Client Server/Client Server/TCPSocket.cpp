@@ -32,7 +32,6 @@ tcp_error_t TCPSocket::receiveBytes(vector<byte>& out)
 	{
 		return CONNECTIONFAIL;
 	}
-
 	return SUCCESS;
 }
 

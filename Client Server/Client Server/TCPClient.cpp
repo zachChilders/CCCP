@@ -14,6 +14,7 @@ TCPClient::TCPClient(const char* address)
 		throw WSASTARTFAIL;
 	}
 
+	ipAddress = address;
 }
 
 TCPClient::~TCPClient()

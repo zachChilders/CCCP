@@ -1,14 +1,25 @@
 #include "CCCP.h"
 #include "CCCPClient.h"
 #include "CCCPServer.h"
+#include <iostream>
 #include <modes.h>
+#include <string>
 
+using std::cin;
+using std::cout;
+using std::cerr;
+using std::string;
 using std::vector;
 using namespace CryptoPP;
 
 CCCP::CCCP()
 { 
 	started = false; 
+	connected = false;
+	listening = false;
+	prompting = false;
+	promptable = true;
+	encrypted = true;
 }
 
 CCCP* CCCP::Create(CCCP::State type)
@@ -19,19 +30,47 @@ CCCP* CCCP::Create(CCCP::State type)
 		return new CCCPServer();
 }
 
-void CCCP::command(std::string command)
+void CCCP::send(std::string message, bool encrypted)
 {
+	if (message.empty())
+		return;
 
+	if (aesKey.BytePtr() != nullptr && encrypted)
+		connection->sendBytes(encrypt(message));
+	else
+		connection->sendString(message);
 }
 
-void CCCP::send(std::string message)
+void CCCP::send(vector<byte> data, bool encrypted)
 {
+	if (data.empty())
+		return;
 
+	if (aesKey.BytePtr() != nullptr && encrypted)
+		connection->sendBytes(encrypt(data));
+	else
+		connection->sendBytes(data);
 }
 
-std::string CCCP::receive()
+string CCCP::receiveString(bool encrypted)
 {
-	return "";
+	vector<byte> message = receive(encrypted);
+
+	if (message.size() > 0)
+		return string((char*)&message[0], message.size());
+	else
+		return "";
+}
+
+vector<byte> CCCP::receive(bool encrypted)
+{
+	vector<byte> message;
+	connection->receiveBytes(message);
+
+	if (!message.empty() && aesKey.BytePtr() != nullptr && encrypted)
+		message = decrypt(message);
+
+	return message;
 }
 
 std::vector<byte>& CCCP::encrypt(std::vector<byte>& data)

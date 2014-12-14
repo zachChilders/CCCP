@@ -129,7 +129,10 @@ xcopy /d /y "$(ProjectDir)include\SQLite\*.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <ClCompile Include="CCCP.cpp" />
     <ClCompile Include="CCCPClient.cpp" />
+    <ClCompile Include="CCCPClientCommands.cpp" />
+    <ClCompile Include="CCCPCommands.cpp" />
     <ClCompile Include="CCCPServer.cpp" />
+    <ClCompile Include="CCCPServerCommands.cpp" />
     <ClCompile Include="database.cpp" />
     <ClCompile Include="include\Encryption\md5.cpp" />
     <ClCompile Include="main.cpp" />

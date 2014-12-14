@@ -5,20 +5,25 @@
 class CCCPClient : public CCCP
 {
 private:
-	std::string serverIP;
 	std::string username;
 	std::string password;
-	std::string sessionKey;
 	
 	void login();
 	void promptPass();
+	void work();
+	void listen();
+	void prompt();
 
+	bool command(std::vector<std::string>& parameters, bool local = false);
+
+	bool cmdRequest(std::vector<std::string>& parameters);
+	bool cmdSessionID(std::vector<std::string>& parameters);
 public:
 	~CCCPClient();
 
 	void start();
 	void stop();
-	void command(std::string command);
+	bool command(std::string command, bool local = false);
 
 	void compile();
 

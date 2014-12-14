@@ -6,11 +6,14 @@
 #include <vector>
 #include <iterator>
 #include <conio.h>
+#include <thread>
 
 using std::cout;
+using std::cerr;
 using std::cin;
 using std::string;
 using std::vector;
+using std::thread;
 using namespace CryptoPP;
 
 
@@ -51,11 +54,7 @@ void CCCPClient::start()
 	//Get server and login information.
 	string ip, user, pass;
 	cout << "Enter server IP: ";
-	cin >> ip;
-	cout << "Enter username: ";
-	cin >> user;
-	cout << "Enter password: ";
-	promptPass();	
+	cin >> ip;	
 
 	//Reset our unique pointer
 	connection.reset(new TCPClient(ip.c_str()));
@@ -78,19 +77,30 @@ void CCCPClient::start()
 	cout << "Connecting to server...\n";
 	connection->start();
 
+	connected = true;
+
 	cout << "Encrypting connection...\n";
-	connection->sendBytes(message);
+	send(message, false);
 
-	//Clear and decrypt the response.
-	message.clear();
-	connection->receiveBytes(message);
-	message = decrypt(message);
+	//Clear vector and get the response.
+	string response = receiveString();
 
-	string response = string((char*)&message[0], message.size());
 	if (response != "OkieDokie")
-		cout << "Error encrypting connection.\n";
-	else
-		started = true;
+	{
+		cerr << "Error encrypting connection.\n";
+		stop();
+		return;
+	}
+
+	//It's officially started.
+	started = true;
+
+	//Prompt for login info.
+	command(receiveString());
+
+	if (sessionKey.empty())
+		return;
+	work();
 }
 
 void CCCPClient::stop()
@@ -102,14 +112,67 @@ void CCCPClient::stop()
 	username.erase();
 	password.erase();
 	sessionKey.erase();
-}
-
-void CCCPClient::command(std::string command)
-{
-
+	started = false;
+	connected = false;
+	listening = false;
+	encrypted = false;
 }
 
 void CCCPClient::compile()
 {
 
+}
+
+void CCCPClient::login()
+{
+	cout << "Enter username: ";
+	cin >> username;
+	cout << "Enter password: ";
+	promptPass();
+	
+	send("login " + username + ' ' + password);
+	command(receiveString());
+}
+
+void CCCPClient::work()
+{
+	thread listener(&CCCPClient::listen, this);
+	prompt();
+}
+
+void CCCPClient::prompt()
+{
+	string input;
+	cin.ignore();
+
+	while (promptable)
+	{
+		cout << "CCCP@" << connection->getIP() << "> ";
+		std::getline(cin, input);
+		command(input, true);
+	}
+}
+
+//Constantly tries to receive. Should be run on another thread.
+void CCCPClient::listen()
+{
+	if (listening)
+		return;
+
+	string recv;
+	listening = true;
+
+	//Non-blocking mode for the socket. This way it's easy to stop listening.
+	u_long mode = 1;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
+
+	while (listening)
+	{
+		recv = receiveString(encrypted);
+
+		//In case we stop listening while receiving a message.
+		if (listening && !recv.empty())
+			command(recv);
+	}
+	listening = false;
 }
