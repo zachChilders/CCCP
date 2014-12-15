@@ -333,7 +333,7 @@ bool CCCPServer::cmdAddFlag(std::vector<std::string>& parameters)
 	}
 
 	string compiler, flag;
-	char parameter;
+	int parameter;
 
 	cout << "Compiler name: ";
 	cin >> compiler;
@@ -356,17 +356,10 @@ bool CCCPServer::cmdAddFlag(std::vector<std::string>& parameters)
 	cout << "Flag (no - or /): ";
 	cin >> flag;
 
-	cout << "Parameter?(Y/n): ";
+	cout << "Number of parameters: ";
 	cin >> parameter;
 
-	bool status;
-
-	if (parameter == 'n' || parameter == 'N')
-		status = db.addFlag(compiler, flag, false);
-	else
-		status = db.addFlag(compiler, flag, true);
-
-	if (status)
+	if (db.addFlag(compiler, flag, parameter))
 		cout << "Flag " + flag + " for compiler " + compiler + " added.\n";
 	else
 		cerr << "Flag " + flag + " not added.\n";

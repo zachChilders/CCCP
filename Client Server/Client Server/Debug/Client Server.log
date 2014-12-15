@@ -1,37 +1,5 @@
-﻿Build started 12/15/2014 12:48:50 PM.
-     1>Project "D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I./include/SQLite /I./include/Encryption /I./include /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include" /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\include" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt CCCP.cpp CCCPClient.cpp CCCPServer.cpp
-         CCCPServer.cpp
-         CCCPClient.cpp
-         CCCP.cpp
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.exe" /INCREMENTAL /NOLOGO dlltest.lib cryptopp.lib sqlite3.lib zdll.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.lib" /MACHINE:X86 Debug\CCCP.obj
-         Debug\CCCPClient.obj
-         Debug\CCCPClientCommands.obj
-         Debug\CCCPCommands.obj
-         Debug\CCCPServer.obj
-         Debug\CCCPServerCommands.obj
-         Debug\CMDRunner.obj
-         Debug\database.obj
-         Debug\md5.obj
-         Debug\main.obj
-         Debug\Preprocessor.obj
-         Debug\TCPClient.obj
-         Debug\TCPServer.obj
-         Debug\TCPSocket.obj
-         Client Server.vcxproj -> D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\Client Server.exe
-       PostBuildEvent:
-         xcopy /d /y "D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\lib\*.dll" "D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\"
-         xcopy /d /y "D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\*.dll" "D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\"
-         xcopy /d /y "D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\include\SQLite\*.dll" "D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Debug\"
-         :VCEnd
-         0 File(s) copied
-         0 File(s) copied
-         0 File(s) copied
-     1>Done Building Project "D:\SkyDrive\Documents\Visual Studio 2013\Projects\CCCP\Client Server\Client Server\Client Server.vcxproj" (Build target(s)).
+﻿Build started 12/15/2014 1:26:07 PM.
 
 Build succeeded.
 
-Time Elapsed 00:00:18.39
+Time Elapsed 00:00:00.06
