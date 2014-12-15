@@ -67,6 +67,8 @@ void CCCPClient::start()
 		return;
 	}
 
+	encrypted = true;
+
 	//It's officially started.
 	started = true;
 

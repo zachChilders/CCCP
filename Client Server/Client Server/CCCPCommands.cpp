@@ -53,7 +53,7 @@ bool CCCP::cmdSend(std::vector<std::string>& parameters)
 	}
 	else
 		for (int i = 0; i < parameters.size(); i++)
-			message += parameters[i];
+			message += (i > 0 ? " " : "") + parameters[i];
 
 	send("message " + message);
 	return true;
@@ -66,7 +66,7 @@ bool CCCP::cmdMessage(std::vector<std::string>& parameters)
 
 	string message = "";
 	for (int i = 0; i < parameters.size(); i++)
-		message += parameters[i];
+		message += (i > 0 ? " " : "") + parameters[i];
 
 	cout << "\n" + connection->getIP() + " says: " + message + '\n';
 

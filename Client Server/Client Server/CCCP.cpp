@@ -20,7 +20,7 @@ CCCP::CCCP()
 	listening = false;
 	prompting = false;
 	promptable = true;
-	encrypted = true;
+	encrypted = false;
 }
 
 CCCP* CCCP::Create(CCCP::State type)

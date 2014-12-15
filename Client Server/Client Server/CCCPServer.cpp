@@ -52,6 +52,7 @@ reset:
 	//Acknowledge that we got the key.
 	send("OkieDokie");
 	connected = true;
+	encrypted = true;
 
 	//Check for login. If fail, reset the server.
 	send("request login");
