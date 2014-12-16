@@ -1,5 +1,6 @@
 #include "CCCPClient.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -59,6 +60,11 @@ bool CCCPClient::command(vector<string>& parameters, bool local)
 		parameters.erase(parameters.begin());
 		return cmdAddSetting(parameters);
 	}
+	else if (parameters[0] == "compile")
+	{
+		parameters.erase(parameters.begin());
+		return cmdCompile(parameters);
+	}
 	else
 		return false;
 
@@ -117,4 +123,27 @@ bool CCCPClient::cmdAddSetting(std::vector<std::string>& parameters)
 	send("addsetting " + shortname + ' ' + query);
 
 	return true;
+}
+
+bool CCCPClient::cmdCompile(std::vector<std::string>& parameters)
+{
+	//Call 3 send commands
+	string fname = "butts.txt";
+	send(fname);
+
+	std::ifstream inFile(fname);
+	inFile.seekg(0, inFile.end);
+	int fLength = inFile.tellg();
+	inFile.seekg(0, inFile.beg);
+	inFile.close();
+
+	char* file = new char[fLength];
+	inFile.read(file, fLength);
+
+	send(file);
+	delete[] file;
+
+	string cmd = "gcc butts";
+	send(cmd);
+
 }

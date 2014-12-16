@@ -17,6 +17,7 @@ private:
 	bool cmdRemoveFlag(std::vector<std::string>& parameters);
 	bool cmdAddSetting(std::vector<std::string>& parameters, bool local);
 	bool cmdRemoveSetting(std::vector<std::string>& parameters, bool local);
+	bool cmdCompile(std::vector<std::string>& parameters);
 
 protected:
 	void work();
