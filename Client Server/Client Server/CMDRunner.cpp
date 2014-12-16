@@ -8,7 +8,6 @@ CMDRunner::CMDRunner()
 
 CMDRunner::~CMDRunner()
 {
-	delete db;
 }
 
 void CMDRunner::setDB(database* database)

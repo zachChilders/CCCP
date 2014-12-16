@@ -78,8 +78,7 @@ void CCCPServer::stop()
 	started = false;
 	connected = false;
 	encrypted = false;
-	database db;
-	//db.
+
 }
 
 void CCCPServer::compile()
