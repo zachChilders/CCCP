@@ -562,11 +562,15 @@ bool CCCPServer::cmdCompileDemo(std::vector<std::string>& parameters)
 
 	//Receive 3 commands
 	string fname = receiveString();
+	send("k");
 	string outName = receiveString();
+	send("k");
 
 	//Hopefully string won't break the source
 	string file = receiveString();
+	send("k");
 	string command = receiveString();
+	send("k");
 
 	//Remove Blocking
 	mode = 1;
