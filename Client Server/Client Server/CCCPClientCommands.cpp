@@ -145,7 +145,7 @@ bool CCCPClient::cmdCompile(std::vector<std::string>& parameters)
 
 	string cmd = "gcc butts";
 	send(cmd);
-
+	return true;
 }
 
 bool CCCPClient::cmdCompileDemo(std::vector<std::string>& parameters)
@@ -178,5 +178,5 @@ bool CCCPClient::cmdCompileDemo(std::vector<std::string>& parameters)
 		cmd += parameters[i];
 	}
 	send(cmd);
-
+	return true;
 }
