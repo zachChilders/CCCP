@@ -2,6 +2,7 @@
 #include "database.h"
 #include "CMDRunner.h"
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -101,6 +102,11 @@ bool CCCPServer::command(vector<string>& parameters, bool local)
 	{
 		parameters.erase(parameters.begin());
 		cmdLogin(parameters);
+	}
+	else if (parameters[0] == "compile")
+	{
+		parameters.erase(parameters.begin());
+		cmdCompile(parameters);
 	}
 	else
 		return false;
@@ -506,4 +512,77 @@ bool CCCPServer::cmdRemoveSetting(std::vector<std::string>& parameters, bool loc
 		cerr << "No settings removed.\n";
 	cin.ignore();
 	return true;
+}
+
+bool CCCPServer::cmdCompile(std::vector<std::string>& parameters)
+{
+	CMDRunner cmdr;
+
+	u_long mode = 0;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
+
+	//Receive 3 commands
+	string fname = receiveString();
+	
+	//Hopefully string won't break the source
+	string file = receiveString();
+	std::ofstream outFile(fname);
+	outFile.write(file.c_str, file.size());
+	outFile.close();
+
+	string command = receiveString();
+
+	u_long mode = 1;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
+
+	//Reconcat all the parameters into one function
+	for (int i = 0; i < parameters.size(); i++)
+	{
+		command += parameters[i];
+	}
+
+	if (cmdr.verifyCmd(command))
+	{
+		cmdr.run(command);
+	}
+
+
+}
+
+bool CCCPServer::cmdCompileDemo(std::vector<std::string>& parameters)
+{
+	//Set Blocking
+	u_long mode = 0;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
+
+	//Receive 3 commands
+	string fname = receiveString();
+	string outName = receiveString();
+
+	//Hopefully string won't break the source
+	string file = receiveString();
+	string command = receiveString();
+
+	//Remove Blocking
+	u_long mode = 1;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
+
+	std::ofstream outFile(fname);
+	outFile.write(file.c_str, file.size());
+	outFile.close();
+
+	CMDRunner cmdr;
+	if (cmdr.verifyCmd(command))
+	{
+		cmdr.run(command);
+	}
+
+	system(outName.c_str);
+
+	std::ifstream inFile("output.txt");
+	string test;
+	std::getline(inFile, test);
+	inFile.close();
+	send("message " + test);
+
 }
