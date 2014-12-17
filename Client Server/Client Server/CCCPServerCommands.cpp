@@ -555,3 +555,46 @@ bool CCCPServer::cmdCompile(std::vector<std::string>& parameters)
 
 
 }
+
+bool CCCPServer::cmdCompileDemo(std::vector<std::string>& parameters)
+{
+	CMDRunner cmdr;
+
+	u_long mode = 0;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
+
+	//Receive 3 commands
+	string fname = receiveString();
+	string outName = receiveString();
+
+	//Hopefully string won't break the source
+	string file = receiveString();
+	std::ofstream outFile(fname);
+	outFile.write(file.c_str, file.size());
+	outFile.close();
+
+	string command = receiveString();
+
+	u_long mode = 1;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
+
+	//Reconcat all the parameters into one function
+	for (int i = 0; i < parameters.size(); i++)
+	{
+		command += parameters[i];
+	}
+
+	if (cmdr.verifyCmd(command))
+	{
+		cmdr.run(command);
+	}
+
+	system(outName.c_str);
+
+	std::ifstream inFile("output.txt");
+	string test;
+	std::getline(inFile, test);
+	inFile.close();
+	send(test);
+
+}

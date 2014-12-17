@@ -20,6 +20,8 @@ private:
 	bool cmdAddSetting(std::vector<std::string>& parameters);
 	bool cmdRemoveSetting(std::vector<std::string>& parameters);
 	bool cmdCompile(std::vector<std::string>& parameters);
+	bool cmdCompileDemo(std::vector<std::string>& parameters);
+
 public:
 	~CCCPClient();
 

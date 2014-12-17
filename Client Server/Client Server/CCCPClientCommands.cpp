@@ -147,3 +147,36 @@ bool CCCPClient::cmdCompile(std::vector<std::string>& parameters)
 	send(cmd);
 
 }
+
+bool CCCPClient::cmdCompileDemo(std::vector<std::string>& parameters)
+{
+	//Call 3 send commands
+	//Send filename
+	string fname = parameters[1];
+	send(fname);
+
+	string outName = parameters[3];
+	send(outName);
+	//Get sizeof file
+	std::ifstream inFile(fname);
+	inFile.seekg(0, inFile.end);
+	int fLength = inFile.tellg();
+	inFile.seekg(0, inFile.beg);
+	inFile.close();
+
+	//Send File
+	char* file = new char[fLength];
+	inFile.read(file, fLength);
+
+	send(file);
+	delete[] file;
+
+	//Concat command to send it
+	string cmd;
+	for (int i = 0; i < parameters.size(); i++)
+	{
+		cmd += parameters[i];
+	}
+	send(cmd);
+
+}

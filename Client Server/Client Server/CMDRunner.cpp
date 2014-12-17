@@ -93,6 +93,7 @@ void CMDRunner::run(std::string cmd)
 				  &pi					//Process info, we can query this.
 				  );
 
+	//This should be a blocking command.
 	WaitForSingleObject(pi.hProcess, INFINITY);
 
 	CloseHandle(pi.hProcess);
