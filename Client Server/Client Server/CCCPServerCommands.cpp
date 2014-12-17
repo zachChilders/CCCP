@@ -541,12 +541,12 @@ bool CCCPServer::cmdCompile(std::vector<std::string>& parameters)
 		command += parameters[i];
 	}
 
-	if (cmdr.verifyCmd(command))
+	if (!cmdr.verifyCmd(command))
 	{
-		cmdr.run(command);
+		return false;
 	}
-
-
+	cmdr.run(command);
+	return true;
 }
 
 bool CCCPServer::cmdCompileDemo(std::vector<std::string>& parameters)
@@ -572,10 +572,11 @@ bool CCCPServer::cmdCompileDemo(std::vector<std::string>& parameters)
 	outFile.close();
 
 	CMDRunner cmdr;
-	if (cmdr.verifyCmd(command))
+	if (!cmdr.verifyCmd(command))
 	{
-		cmdr.run(command);
+		return false;
 	}
+	cmdr.run(command);
 
 	system(outName.c_str);
 
@@ -585,4 +586,5 @@ bool CCCPServer::cmdCompileDemo(std::vector<std::string>& parameters)
 	inFile.close();
 	send("message " + test);
 
+	return true;
 }
