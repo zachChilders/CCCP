@@ -534,12 +534,12 @@ bool CCCPServer::cmdCompile(std::vector<std::string>& parameters)
 	//Hopefully string won't break the source
 	string file = receiveString();
 	std::ofstream outFile(fname);
-	outFile.write(file.c_str, file.size());
+	outFile.write(file.c_str(), file.size());
 	outFile.close();
 
 	string command = receiveString();
 
-	u_long mode = 1;
+	mode = 1;
 	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
 
 	//Reconcat all the parameters into one function
@@ -571,11 +571,11 @@ bool CCCPServer::cmdCompileDemo(std::vector<std::string>& parameters)
 	string command = receiveString();
 
 	//Remove Blocking
-	u_long mode = 1;
+	mode = 1;
 	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
 
 	std::ofstream outFile(fname);
-	outFile.write(file.c_str, file.size());
+	outFile.write(file.c_str(), file.size());
 	outFile.close();
 
 	CMDRunner cmdr;
@@ -585,7 +585,7 @@ bool CCCPServer::cmdCompileDemo(std::vector<std::string>& parameters)
 	}
 	cmdr.run(command);
 
-	system(outName.c_str);
+	system(outName.c_str());
 
 	std::ifstream inFile("output.txt");
 	string test;
