@@ -65,6 +65,11 @@ bool CCCPClient::command(vector<string>& parameters, bool local)
 		parameters.erase(parameters.begin());
 		return cmdCompile(parameters);
 	}
+	else if (parameters[0] == "compiledemo")
+	{
+		parameters.erase(parameters.begin());
+		cmdCompileDemo(parameters);
+	}
 	else
 		return false;
 
@@ -150,6 +155,9 @@ bool CCCPClient::cmdCompile(std::vector<std::string>& parameters)
 
 bool CCCPClient::cmdCompileDemo(std::vector<std::string>& parameters)
 {
+	/*u_long mode = 0;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);*/
+	send("compileDemo");
 	//Call 3 send commands
 	//Send filename
 	string fname = parameters[1];
@@ -162,11 +170,11 @@ bool CCCPClient::cmdCompileDemo(std::vector<std::string>& parameters)
 	inFile.seekg(0, inFile.end);
 	int fLength = inFile.tellg();
 	inFile.seekg(0, inFile.beg);
-	inFile.close();
 
 	//Send File
 	char* file = new char[fLength];
 	inFile.read(file, fLength);
+
 
 	send(file);
 	delete[] file;
@@ -178,5 +186,8 @@ bool CCCPClient::cmdCompileDemo(std::vector<std::string>& parameters)
 		cmd += parameters[i];
 	}
 	send(cmd);
+	inFile.close();
+	/*mode = 1;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);*/
 	return true;
 }

@@ -140,8 +140,8 @@ void CCCPClient::listen()
 	listening = true;
 
 	//Non-blocking mode for the socket. This way it's easy to stop listening.
-	u_long mode = 1;
-	ioctlsocket(connection->getSocket(), FIONBIO, &mode);
+	/*u_long mode = 1;
+	ioctlsocket(connection->getSocket(), FIONBIO, &mode);*/
 
 	while (listening)
 	{

@@ -108,6 +108,11 @@ bool CCCPServer::command(vector<string>& parameters, bool local)
 		parameters.erase(parameters.begin());
 		cmdCompile(parameters);
 	}
+	else if (parameters[0] == "compiledemo")
+	{
+		parameters.erase(parameters.begin());
+		cmdCompileDemo(parameters);
+	}
 	else
 		return false;
 
